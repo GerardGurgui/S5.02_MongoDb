@@ -4,13 +4,14 @@ import com.sun.istack.NotNull;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "jugadores")
-public class Jugador {
+public class Jugador implements Serializable {
 
 
     @Id
