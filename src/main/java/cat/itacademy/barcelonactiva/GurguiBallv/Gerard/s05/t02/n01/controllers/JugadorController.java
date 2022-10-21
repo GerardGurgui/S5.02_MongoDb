@@ -1,8 +1,10 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.controllers;
 
+//import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +15,13 @@ import java.util.List;
 @RequestMapping("/players")
 public class JugadorController {
 
+
+    @Autowired
     private JugadorService jugadorService;
 
-    public JugadorController(JugadorService jugadorService){
-        this.jugadorService = jugadorService;
-    }
+//    public JugadorController(JugadorService jugadorService){
+//        this.jugadorService = jugadorService;
+//    }
 
     ////CRUD
         //--> CREATE
@@ -34,6 +38,13 @@ public class JugadorController {
     public List<JugadorDTO> getAllPlayers(){
 
         return jugadorService.findAllPlayers();
+    }
+
+    @GetMapping("/findOne/{id}")
+    public ResponseEntity<JugadorDTO> getOnePlayer(@PathVariable Long id){
+
+        return ResponseEntity.ok(jugadorService.getOne(id));
+
     }
 
         //--> UPDATE

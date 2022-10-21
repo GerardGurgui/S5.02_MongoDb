@@ -2,7 +2,6 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,15 +11,14 @@ public class JugadorDTO implements Serializable {
     //PENSAR BIEN QUE GUARDO EN BDD Y QUE QUIERO MOSTRAR, ESTADISTIDICAS, RESULTADOS ETC
     //NO PASSWORD
     private Long id;
-    private String userName;
+    private String nombre;
     private LocalDate localDate;
     private int puntuacion;
     private int victoria;
-
-    private Set<TiradaDTO> listaTiradas;
+    private Set<TiradaDTO> tiradas;
 
     public JugadorDTO() {
-        listaTiradas = new HashSet<>();
+//        tiradas = new HashSet<>();
     }
 
     public Long getId() {
@@ -31,12 +29,12 @@ public class JugadorDTO implements Serializable {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public int getPuntuacion() {
@@ -63,11 +61,21 @@ public class JugadorDTO implements Serializable {
         this.victoria = victoria;
     }
 
-    public Set<TiradaDTO> getListaTiradas() {
-        return listaTiradas;
+    public Set<TiradaDTO> getTiradas() {
+        return tiradas;
     }
 
-    public void setListaTiradas(Set<TiradaDTO> listaTiradas) {
-        this.listaTiradas = listaTiradas;
+    public void setTiradas(Set<TiradaDTO> tiradas) {
+        this.tiradas = tiradas;
+    }
+
+    public void addTiradaDto(TiradaDTO tiradaDTO){
+
+        if (this.tiradas == null){
+            tiradas = new HashSet<>();
+        }
+
+        tiradas.add(tiradaDTO);
+
     }
 }

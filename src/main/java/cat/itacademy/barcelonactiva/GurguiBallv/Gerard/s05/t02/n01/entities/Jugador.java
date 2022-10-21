@@ -1,6 +1,5 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities;
 
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.TiradaDTO;
 import com.sun.istack.NotNull;
 
 
@@ -19,12 +18,12 @@ public class Jugador {
     private Long id;
 
     @NotNull
-    private String userName;
+    private String nombre;
 
     private int puntuacion;
     private int victoria;
 
-    private String password; // DTO? JWT SECURITY?
+    private String contrasenya; // DTO? JWT SECURITY?
 
     @Column(name = "fecha_registro")
     private LocalDate localDate;
@@ -42,8 +41,8 @@ public class Jugador {
     public Jugador() {
     }
 
-    public Jugador(String userName, LocalDate localDate) {
-        this.userName = userName;
+    public Jugador(String nombre, LocalDate localDate) {
+        this.nombre = nombre;
         this.localDate = localDate;
         puntuacion = 0;
         victoria = 0;
@@ -57,12 +56,12 @@ public class Jugador {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public LocalDate getLocalDate() {
@@ -97,12 +96,12 @@ public class Jugador {
         this.victoria = victoria;
     }
 
-    public String getPassword() {
-        return password;
+    public String getContrasenya() {
+        return contrasenya;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContrasenya(String contrasenya) {
+        this.contrasenya = contrasenya;
     }
 
     ////
@@ -119,18 +118,15 @@ public class Jugador {
     }
 
 
-
-
-
     @Override
     public String toString() {
         return "Jugador{" +
                 "id=" + id +
-                ", nombre='" + userName + '\'' +
+                ", nombre='" + nombre + '\'' +
                 ", puntuacion=" + puntuacion +
                 ", victoria=" + victoria +
-                ", localDate=" + localDate +
-                ", tiradas=" + tiradas +
+//                ", localDate=" + localDate +
+//                ", tiradas=" + tiradas +
                 '}';
     }
 }

@@ -1,6 +1,5 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01;
 
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.TiradaDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
@@ -34,7 +33,7 @@ public class S05T02N01GurguiBallveGerardApplication {
 		//JUGADORES
 		Jugador jugador1 = new Jugador("Gerard",localDate);
 		//Proves DTO PASSWORD
-		jugador1.setPassword("password");
+		jugador1.setContrasenya("password");
 
 		Jugador jugador2 = new Jugador("Ramesh",localDate);
 
@@ -46,22 +45,22 @@ public class S05T02N01GurguiBallveGerardApplication {
 		tirada1.setDado1(2);
 		tirada1.setDado2(6);
 		tirada1.setResultadoTirada(8);
-
-		Tirada tirada2 = new Tirada();
-		tirada2.setDado1(3);
-		tirada2.setDado2(1);
-		tirada2.setResultadoTirada(4);
-
-		Tirada tirada3 = new Tirada();
-		tirada3.setDado1(5);
-		tirada3.setDado2(4);
-		tirada3.setResultadoTirada(9);
+//
+//		Tirada tirada2 = new Tirada();
+//		tirada2.setDado1(3);
+//		tirada2.setDado2(1);
+//		tirada2.setResultadoTirada(4);
+//
+//		Tirada tirada3 = new Tirada();
+//		tirada3.setDado1(5);
+//		tirada3.setDado2(4);
+//		tirada3.setResultadoTirada(9);
 
 		jugador1.addTirada(tirada1);
-		jugador1.addTirada(tirada2);
-
-
-		jugador2.addTirada(tirada3);
+//		jugador1.addTirada(tirada2);
+//
+//
+//		jugador2.addTirada(tirada3);
 
 
 		jugadorRepository.save(jugador1);
