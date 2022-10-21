@@ -4,7 +4,7 @@ import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Juga
 
 import java.io.Serializable;
 
-public class TiradaDTO implements Serializable {
+public class TiradaDTO {
 
     //PENSAR BIEN QUE GUARDO EN BDD Y QUE QUIERO MOSTRAR, ESTADISTIDICAS, RESULTADOS ETC
     private Long id;

@@ -12,10 +12,15 @@ import java.time.LocalDate;
 
 /*LINKS DE AYUDA
 *
-* https://www.youtube.com/watch?v=rKj1NhXuHuk
+* Registrar en dos talbas relacionadas --> https://www.youtube.com/watch?v=rKj1NhXuHuk
 * open bootcamp
 * java guides
 * Json ignore --> passwords https://de-vraag.com/es/54542256
+* CRUD completo --> DTOS CORRECTES?? https://www.youtube.com/watch?v=z_dLYcQqSHI
+* SERIALIZABLE?? --> https://stackoverflow.com/questions/49003908/why-while-using-spring-boot-i-need-entities-to-be-serializable
+* 				--> https://www.baeldung.com/jpa-entities-serializable
+*
+*
 * */
 
 @SpringBootApplication

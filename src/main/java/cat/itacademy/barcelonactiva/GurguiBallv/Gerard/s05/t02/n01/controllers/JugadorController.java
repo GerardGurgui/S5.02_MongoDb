@@ -16,12 +16,11 @@ import java.util.List;
 public class JugadorController {
 
 
-    @Autowired
     private JugadorService jugadorService;
 
-//    public JugadorController(JugadorService jugadorService){
-//        this.jugadorService = jugadorService;
-//    }
+    public JugadorController(JugadorService jugadorService){
+        this.jugadorService = jugadorService;
+    }
 
     ////CRUD
         //--> CREATE

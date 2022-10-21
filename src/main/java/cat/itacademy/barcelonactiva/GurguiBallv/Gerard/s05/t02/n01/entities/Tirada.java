@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "registro_tiradas")
-public class Tirada {
+public class Tirada implements Serializable {
 
 
     @Id

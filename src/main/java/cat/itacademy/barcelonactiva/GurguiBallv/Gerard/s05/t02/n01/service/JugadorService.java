@@ -20,103 +20,16 @@ public class JugadorService {
 
     private final Logger log = LoggerFactory.getLogger(JugadorService.class);
 
-    @Autowired
+
     private JugadorRepository jugadorRepository;
 
-//    private JugadorDtoConvert jugadorDtoConvert;
+    private JugadorDtoConvert jugadorDtoConvert;
 
 
-//    public JugadorService(JugadorRepository jugadorRepository){
-//        this.jugadorRepository = jugadorRepository;
-////        jugadorDtoConvert = new JugadorDtoConvert();
-//    }
-
-    /////DTO -JUGADOR
-
-    public JugadorDTO convertPlayerToDto(Jugador jugador){
-
-        JugadorDTO jugadorDTO = new JugadorDTO();
-
-        jugadorDTO.setId(jugador.getId());
-        jugadorDTO.setNombre(jugador.getNombre());
-        jugadorDTO.setLocalDate(jugador.getLocalDate());
-        jugadorDTO.setPuntuacion(jugador.getPuntuacion());
-        jugadorDTO.setVictoria(jugador.getVictoria());
-
-//        OBTENC LA LLISTA DE TIRADAS ENTITAT DE LA ENTITAT JUGADOR
-        Set<Tirada> tiradasToDto = jugador.getTiradas();
-
-        //LES ANIRE GUARDAN A UNA VARIABLE TIRADA DTO
-        TiradaDTO tiradaDTO;
-
-        //RECORRU LA LLISTA DE TIRADASDTO, LES VAIG CONVERTIN UNA A UNA
-        //I AFEGINLAS A LA LLISTA DEL JUGADOR
-
-        for (Tirada tirada : tiradasToDto) {
-            tiradaDTO = convertTiradaToDTO(tirada);
-            jugadorDTO.addTiradaDto(tiradaDTO);
-        }
-
-        return jugadorDTO;
+    public JugadorService(JugadorRepository jugadorRepository){
+        this.jugadorRepository = jugadorRepository;
+        jugadorDtoConvert = new JugadorDtoConvert();
     }
-
-    public Jugador convertDtoToPlayer(JugadorDTO jugadorDTO){
-
-        Jugador jugador = new Jugador();
-
-        jugador.setId(jugadorDTO.getId());
-        jugador.setNombre(jugadorDTO.getNombre());
-        jugador.setLocalDate(jugadorDTO.getLocalDate());
-        jugador.setPuntuacion(jugadorDTO.getPuntuacion());
-        jugador.setVictoria(jugadorDTO.getVictoria());
-
-
-        Set<TiradaDTO> tiradasDtoToTirada = jugadorDTO.getTiradas();
-        Tirada tirada;
-
-        for (TiradaDTO tiradaDTO : tiradasDtoToTirada) {
-
-            tirada = convertDtoToTirada(tiradaDTO);
-            jugador.addTirada(tirada);
-
-        }
-
-        return jugador;
-    }
-
-
-    ////DTO TIRADA
-
-    public TiradaDTO convertTiradaToDTO(Tirada tirada){
-
-        TiradaDTO tiradaDTO = new TiradaDTO();
-
-        tiradaDTO.setId(tirada.getId());
-        tiradaDTO.setDado1(tirada.getDado1());
-        tiradaDTO.setDado2(tirada.getDado2());
-        tiradaDTO.setResultadoTirada(tirada.getResultadoTirada());
-
-
-        return tiradaDTO;
-
-    }
-
-    public Tirada convertDtoToTirada(TiradaDTO tiradaDTO){
-
-        Tirada tirada = new Tirada();
-
-        tirada.setId(tiradaDTO.getId());
-        tirada.setDado1(tiradaDTO.getDado1());
-        tirada.setDado2(tiradaDTO.getDado2());
-        tirada.setResultadoTirada(tiradaDTO.getResultadoTirada());
-
-        return tirada;
-
-    }
-
-
-
-
 
 
 
@@ -125,7 +38,7 @@ public class JugadorService {
         //--> CREATE
     public JugadorDTO createPlayer(JugadorDTO jugadorDtoNew){
 
-        Jugador jugadorEntity = convertDtoToPlayer(jugadorDtoNew);
+        Jugador jugadorEntity = jugadorDtoConvert.convertDtoToPlayer(jugadorDtoNew);
 
         if (jugadorEntity.getId() != null){
 
@@ -149,7 +62,7 @@ public class JugadorService {
 
         for (Jugador jugadoresIter : jugadorRepository.findAll()) {
 
-            jugadorDTO = convertPlayerToDto(jugadoresIter);
+            jugadorDTO = jugadorDtoConvert.convertPlayerToDto(jugadoresIter);
             listaJugadoresDto.add(jugadorDTO);
 
         }
@@ -166,7 +79,7 @@ public class JugadorService {
             log.warn("no existe el jugador");
         }
 
-        JugadorDTO jugadorDTO = convertPlayerToDto(jugadorOpt.get());
+        JugadorDTO jugadorDTO = jugadorDtoConvert.convertPlayerToDto(jugadorOpt.get());
 
         return jugadorDTO;
     }
