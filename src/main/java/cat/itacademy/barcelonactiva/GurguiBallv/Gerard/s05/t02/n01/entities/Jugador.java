@@ -13,26 +13,24 @@ import java.util.Set;
 @Table(name = "jugadores")
 public class Jugador implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
     private String nombre;
+    private int edad;
+    private String email; //supuestamente recibe calificaciones en email, será DTO
+    private String pais; //para tema servidores
 
     private int puntuacion;
     private int victoria;
-
     private String contrasenya; // DTO? JWT SECURITY?
 
     @Column(name = "fecha_registro")
-    private LocalDate localDate;
+    private LocalDate fechaRegistro;
 
 
-//    @JsonIgnore //evitar error recursivo, pero claro no muestra lista dados por jugador
-//                arreglar con DTO??
-    //eager aqui??
     @OneToMany(cascade = CascadeType.ALL,
                fetch = FetchType.LAZY)
     @JoinColumn(name = "id_jugador", referencedColumnName = "id")
@@ -42,11 +40,12 @@ public class Jugador implements Serializable {
     public Jugador() {
     }
 
-    public Jugador(String nombre, LocalDate localDate) {
+    public Jugador(String nombre, int edad, String email, String pais) {
         this.nombre = nombre;
-        this.localDate = localDate;
-        puntuacion = 0;
-        victoria = 0;
+        this.edad = edad;
+        this.email = email;
+        this.pais = pais;
+
     }
 
     public Long getId() {
@@ -65,12 +64,36 @@ public class Jugador implements Serializable {
         this.nombre = nombre;
     }
 
-    public LocalDate getLocalDate() {
-        return localDate;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public int getPuntuacion() {

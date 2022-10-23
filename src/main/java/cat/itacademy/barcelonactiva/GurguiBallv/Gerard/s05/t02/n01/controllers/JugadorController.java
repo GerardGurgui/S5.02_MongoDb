@@ -16,7 +16,7 @@ import java.util.List;
 public class JugadorController {
 
 
-    private JugadorService jugadorService;
+    private final JugadorService jugadorService;
 
     public JugadorController(JugadorService jugadorService){
         this.jugadorService = jugadorService;
@@ -25,7 +25,7 @@ public class JugadorController {
     ////CRUD
         //--> CREATE
     @PostMapping("/add")
-    public ResponseEntity<JugadorDTO> addPlayer(@RequestBody JugadorDTO jugadorDTO){
+    public ResponseEntity<Jugador> addPlayer(@RequestBody JugadorDTO jugadorDTO){
 
         return new ResponseEntity<>(jugadorService.createPlayer(jugadorDTO), HttpStatus.CREATED);
 
@@ -34,13 +34,14 @@ public class JugadorController {
 
         //--> READ
     @GetMapping("/findAll")
-    public List<JugadorDTO> getAllPlayers(){
+    public List<Jugador> getAllPlayers(){
 
         return jugadorService.findAllPlayers();
     }
 
+
     @GetMapping("/findOne/{id}")
-    public ResponseEntity<JugadorDTO> getOnePlayer(@PathVariable Long id){
+    public ResponseEntity<Jugador> getOnePlayer(@PathVariable Long id){
 
         return ResponseEntity.ok(jugadorService.getOne(id));
 

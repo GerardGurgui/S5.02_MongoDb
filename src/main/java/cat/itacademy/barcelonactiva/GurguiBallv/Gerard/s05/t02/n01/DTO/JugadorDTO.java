@@ -1,32 +1,18 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO;
 
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 
 public class JugadorDTO {
 
-    //PENSAR BIEN QUE GUARDO EN BDD Y QUE QUIERO MOSTRAR, ESTADISTIDICAS, RESULTADOS ETC
-    //NO PASSWORD
-    private Long id;
+
+    //ATRIBUTOS QUE INTRODUCIRÁ EL USUARIO
     private String nombre;
-    private LocalDate localDate;
-    private int puntuacion;
-    private int victoria;
-    private Set<TiradaDTO> tiradas;
+    private int edad;
+    private String email;
+    private String pais;
 
     public JugadorDTO() {
-//        tiradas = new HashSet<>();
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -37,45 +23,27 @@ public class JugadorDTO {
         this.nombre = nombre;
     }
 
-    public int getPuntuacion() {
-        return puntuacion;
+    public int getEdad() {
+        return edad;
     }
 
-    public LocalDate getLocalDate() {
-        return localDate;
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPuntuacion(int puntuacion) {
-        this.puntuacion = puntuacion;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public int getVictoria() {
-        return victoria;
+    public String getPais() {
+        return pais;
     }
 
-    public void setVictoria(int victoria) {
-        this.victoria = victoria;
-    }
-
-    public Set<TiradaDTO> getTiradas() {
-        return tiradas;
-    }
-
-    public void setTiradas(Set<TiradaDTO> tiradas) {
-        this.tiradas = tiradas;
-    }
-
-    public void addTiradaDto(TiradaDTO tiradaDTO){
-
-        if (this.tiradas == null){
-            tiradas = new HashSet<>();
-        }
-
-        tiradas.add(tiradaDTO);
-
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 }

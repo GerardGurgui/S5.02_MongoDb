@@ -1,19 +1,16 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service;
 
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.TiradaDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.mapper.DtoJugadorToJugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class JugadorService {
@@ -21,14 +18,15 @@ public class JugadorService {
     private final Logger log = LoggerFactory.getLogger(JugadorService.class);
 
 
-    private JugadorRepository jugadorRepository;
+    //INYECCIONES POR CONSTRUCTOR, FINAL POR INMUTABLE??
+    private final JugadorRepository jugadorRepository;
 
-    private JugadorDtoConvert jugadorDtoConvert;
+    private final DtoJugadorToJugador mapper;
 
 
-    public JugadorService(JugadorRepository jugadorRepository){
+    public JugadorService(JugadorRepository jugadorRepository, DtoJugadorToJugador mapper){
         this.jugadorRepository = jugadorRepository;
-        jugadorDtoConvert = new JugadorDtoConvert();
+        this.mapper = mapper;
     }
 
 
@@ -36,9 +34,9 @@ public class JugadorService {
 
     ////CRUD
         //--> CREATE
-    public JugadorDTO createPlayer(JugadorDTO jugadorDtoNew){
+    public Jugador createPlayer(JugadorDTO jugadorDtoNew){
 
-        Jugador jugadorEntity = jugadorDtoConvert.convertDtoToPlayer(jugadorDtoNew);
+        Jugador jugadorEntity = mapper.map(jugadorDtoNew);
 
         if (jugadorEntity.getId() != null){
 
@@ -46,32 +44,31 @@ public class JugadorService {
 
         }
 
-        jugadorRepository.save(jugadorEntity);
         log.info("Jugador creado correctamente");
 
-        return jugadorDtoNew;
+        return jugadorRepository.save(jugadorEntity);
 
     }
 
 
         //--> READ
-    public List<JugadorDTO> findAllPlayers(){
+    public List<Jugador> findAllPlayers(){
 
-        List<JugadorDTO> listaJugadoresDto = new ArrayList<>();
-        JugadorDTO jugadorDTO;
+//        List<JugadorDTO> listaJugadoresDto = new ArrayList<>();
+//        JugadorDTO jugadorDTO;
+//
+//        for (Jugador jugadoresIter : jugadorRepository.findAll()) {
+//
+//            jugadorDTO = mapper.map(jugadoresIter);
+//            listaJugadoresDto.add(jugadorDTO);
+//
+//        }
 
-        for (Jugador jugadoresIter : jugadorRepository.findAll()) {
-
-            jugadorDTO = jugadorDtoConvert.convertPlayerToDto(jugadoresIter);
-            listaJugadoresDto.add(jugadorDTO);
-
-        }
-
-        return listaJugadoresDto;
+        return jugadorRepository.findAll();
 
     }
 
-    public JugadorDTO getOne(Long id){
+    public Jugador getOne(Long id){
 
         Optional<Jugador> jugadorOpt = jugadorRepository.findById(id);
 
@@ -79,9 +76,7 @@ public class JugadorService {
             log.warn("no existe el jugador");
         }
 
-        JugadorDTO jugadorDTO = jugadorDtoConvert.convertPlayerToDto(jugadorOpt.get());
-
-        return jugadorDTO;
+        return jugadorOpt.get();
     }
 
         //--> UPDATE

@@ -12,15 +12,13 @@ import java.time.LocalDate;
 
 /*LINKS DE AYUDA
 *
-* Registrar en dos talbas relacionadas --> https://www.youtube.com/watch?v=rKj1NhXuHuk
+* Registrar en dos tablas relacionadas --> https://www.youtube.com/watch?v=rKj1NhXuHuk
 * open bootcamp
 * java guides
 * Json ignore --> passwords https://de-vraag.com/es/54542256
 * CRUD completo --> DTOS CORRECTES?? https://www.youtube.com/watch?v=z_dLYcQqSHI
 * SERIALIZABLE?? --> https://stackoverflow.com/questions/49003908/why-while-using-spring-boot-i-need-entities-to-be-serializable
 * 				--> https://www.baeldung.com/jpa-entities-serializable
-*
-*
 * */
 
 @SpringBootApplication
@@ -36,21 +34,21 @@ public class S05T02N01GurguiBallveGerardApplication {
 		LocalDate localDate = LocalDate.now();
 
 		//JUGADORES
-		Jugador jugador1 = new Jugador("Gerard",localDate);
-		//Proves DTO PASSWORD
-		jugador1.setContrasenya("password");
-
-		Jugador jugador2 = new Jugador("Ramesh",localDate);
+		Jugador jugador1 = new Jugador("Gerard",31,"gerrigb1@hotmail.com","Spain");
+//		//Proves DTO PASSWORD
+//		jugador1.setContrasenya("password");
+//
+//		Jugador jugador2 = new Jugador("Ramesh",localDate);
 
 		//JUGADOR TIENE UNA LISTA DE TIRADAS, QUE A SU VEZ CADA TIRADA CONTIENE EL DADO?? PERO NO DADO ID
 
 		//INSTANCIAR 2 DADOS PARA CADA JUGADOR?? SE PUEDE REPETIR PARA TIRADA??
 
-		Tirada tirada1 = new Tirada();
-		tirada1.setDado1(2);
-		tirada1.setDado2(6);
-		tirada1.setResultadoTirada(8);
-//
+//		Tirada tirada1 = new Tirada();
+//		tirada1.setDado1(2);
+//		tirada1.setDado2(6);
+//		tirada1.setResultadoTirada(8);
+
 //		Tirada tirada2 = new Tirada();
 //		tirada2.setDado1(3);
 //		tirada2.setDado2(1);
@@ -61,21 +59,14 @@ public class S05T02N01GurguiBallveGerardApplication {
 //		tirada3.setDado2(4);
 //		tirada3.setResultadoTirada(9);
 
-		jugador1.addTirada(tirada1);
+//		jugador1.addTirada(tirada1);
 //		jugador1.addTirada(tirada2);
-//
-//
 //		jugador2.addTirada(tirada3);
 
 
 		jugadorRepository.save(jugador1);
 
 //		jugadorRepository.save(jugador2);
-
-
-
-
-
 
 
 	}
