@@ -6,21 +6,12 @@ import java.io.Serializable;
 
 public class TiradaDTO {
 
-    //PENSAR BIEN QUE GUARDO EN BDD Y QUE QUIERO MOSTRAR, ESTADISTIDICAS, RESULTADOS ETC
-    private Long id;
+
     private int dado1;
     private int dado2;
     private int resultadoTirada;
 
-//    private JugadorDTO jugadorDTO;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public TiradaDTO() {
     }
 
     public int getDado1() {
@@ -47,11 +38,4 @@ public class TiradaDTO {
         this.resultadoTirada = resultadoTirada;
     }
 
-//    public JugadorDTO getJugadorDTO() {
-//        return jugadorDTO;
-//    }
-//
-//    public void setJugadorDTO(JugadorDTO jugadorDTO) {
-//        this.jugadorDTO = jugadorDTO;
-//    }
 }

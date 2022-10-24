@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDate;
+import java.util.Optional;
+
+//--> SWAGGER LOCALHOST http://localhost:8080/swagger-ui.html#/
 
 /*LINKS DE AYUDA
 *
@@ -44,10 +47,10 @@ public class S05T02N01GurguiBallveGerardApplication {
 
 		//INSTANCIAR 2 DADOS PARA CADA JUGADOR?? SE PUEDE REPETIR PARA TIRADA??
 
-//		Tirada tirada1 = new Tirada();
-//		tirada1.setDado1(2);
-//		tirada1.setDado2(6);
-//		tirada1.setResultadoTirada(8);
+		Tirada tirada1 = new Tirada();
+		tirada1.setDado1(2);
+		tirada1.setDado2(6);
+		tirada1.setResultadoTirada(8);
 
 //		Tirada tirada2 = new Tirada();
 //		tirada2.setDado1(3);
@@ -65,6 +68,10 @@ public class S05T02N01GurguiBallveGerardApplication {
 
 
 		jugadorRepository.save(jugador1);
+
+//		Optional<Jugador> jugador = jugadorRepository.findById(jugador1.getId());
+//
+//		jugador.get().addTirada(tirada1);
 
 //		jugadorRepository.save(jugador2);
 

@@ -1,6 +1,5 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.controllers;
 
-//import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
@@ -51,5 +50,14 @@ public class JugadorController {
 
         //--> DELETE
 
+
+    ////FUNCIONALIDADES JUEGO
+
+    @PostMapping("/game/tirada/{id}")
+    public ResponseEntity<Jugador> realizaTirada(@PathVariable Long id){
+
+        return ResponseEntity.ok(jugadorService.realizarTirada(id));
+
+    }
 
 }

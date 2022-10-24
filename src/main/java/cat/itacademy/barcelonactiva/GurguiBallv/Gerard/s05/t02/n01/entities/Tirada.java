@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "registro_tiradas")
-public class Tirada implements Serializable {
+public class Tirada {
 
 
     @Id
@@ -24,8 +24,6 @@ public class Tirada implements Serializable {
 //    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    @JoinColumn(name = "tirada_id", referencedColumnName = "id")
 //    private Set<Dado> dados;
-
-
 
 
     public Tirada() {
@@ -64,34 +62,6 @@ public class Tirada implements Serializable {
     }
 
 
-//    public Jugador getJugador() {
-//        return jugador;
-//    }
-//
-//    public void setJugador(Jugador jugador) {
-//        this.jugador = jugador;
-//    }
-
-    //    public Set<Dado> getDados() {
-//        return dados;
-//    }
-//
-//    public void setDados(Set<Dado> dados) {
-//        this.dados = dados;
-//    }
-//
-//
-//    public void addDado(Dado dado){
-//
-//        if (dados == null){
-//            dados = new HashSet<>();
-//        }
-//
-//        dados.add(dado);
-//
-////        dado.setTirada(this);
-//
-//    }
 
 
     @Override

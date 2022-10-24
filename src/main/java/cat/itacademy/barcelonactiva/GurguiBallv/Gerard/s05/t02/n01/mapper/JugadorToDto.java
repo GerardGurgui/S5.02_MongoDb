@@ -10,4 +10,7 @@ public class JugadorToDto implements IMapper <Jugador, JugadorDTO> {
     public JugadorDTO map(Jugador jugadorEntity) {
         return null;
     }
+
+
+
 }

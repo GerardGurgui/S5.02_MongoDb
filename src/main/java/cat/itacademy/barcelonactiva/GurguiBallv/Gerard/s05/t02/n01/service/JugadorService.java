@@ -1,16 +1,20 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service;
 
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.TiradaDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.game.GameFunctions;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.mapper.DtoJugadorToJugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.TiradaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class JugadorService {
@@ -21,14 +25,16 @@ public class JugadorService {
     //INYECCIONES POR CONSTRUCTOR, FINAL POR INMUTABLE??
     private final JugadorRepository jugadorRepository;
 
+    private final TiradaRepository tiradaRepository;
+
     private final DtoJugadorToJugador mapper;
 
 
-    public JugadorService(JugadorRepository jugadorRepository, DtoJugadorToJugador mapper){
+    public JugadorService(JugadorRepository jugadorRepository, TiradaRepository tiradaRepository, DtoJugadorToJugador mapper){
         this.jugadorRepository = jugadorRepository;
+        this.tiradaRepository = tiradaRepository;
         this.mapper = mapper;
     }
-
 
 
 
@@ -38,6 +44,7 @@ public class JugadorService {
 
         Jugador jugadorEntity = mapper.map(jugadorDtoNew);
 
+        //-- CAMBIAR POR EXCEPTION
         if (jugadorEntity.getId() != null){
 
             log.warn("No puedes crear un jugador con valor en el campo id");
@@ -54,16 +61,6 @@ public class JugadorService {
         //--> READ
     public List<Jugador> findAllPlayers(){
 
-//        List<JugadorDTO> listaJugadoresDto = new ArrayList<>();
-//        JugadorDTO jugadorDTO;
-//
-//        for (Jugador jugadoresIter : jugadorRepository.findAll()) {
-//
-//            jugadorDTO = mapper.map(jugadoresIter);
-//            listaJugadoresDto.add(jugadorDTO);
-//
-//        }
-
         return jugadorRepository.findAll();
 
     }
@@ -72,6 +69,7 @@ public class JugadorService {
 
         Optional<Jugador> jugadorOpt = jugadorRepository.findById(id);
 
+        //-- CAMBIAR POR EXCEPTION
         if (jugadorOpt.isEmpty()){
             log.warn("no existe el jugador");
         }
@@ -79,8 +77,53 @@ public class JugadorService {
         return jugadorOpt.get();
     }
 
+
+
         //--> UPDATE
 
         //--> DELETE
+
+
+
+    ////FUNCIONALIDADES JUEGO
+
+    //TIRAR DADOS
+    public Jugador realizarTirada(Long id){
+
+        Optional<Jugador> jugadorOpt = jugadorRepository.findById(id);
+
+        //CAMBIAR POR EXCEPTION
+        if (jugadorOpt.isEmpty()){
+            log.warn("no existe el jugador");
+        }
+
+        Jugador jugador = jugadorOpt.get();
+
+        //TIRA DADOS, MODIFICA VALORES TIRADA DADOS
+        Tirada tirada = GameFunctions.tirarDados();
+
+        //COMPRUEBA SUMA DE LA TIRADA
+        boolean ganadorRonda = GameFunctions.comprobarTirada(tirada.getResultadoTirada());
+
+        //COMPRUEBA TOTAL RONDAS GANADAS
+        if (ganadorRonda){
+
+            boolean ganadorPartida = GameFunctions.sumarPuntuacionRonda(jugador);
+
+            if (ganadorPartida){
+                jugador.setVictoria(1);
+            }
+        }
+
+        //REVISAR BIEN
+        jugador.addTirada(tirada);
+
+        //HACE FALTA?? ES RARO, CON JUGADOR DESDE EL MAIN YA SE GUARDA POR LA RELACION
+        tiradaRepository.save(tirada);
+
+
+        return jugador;
+
+    }
 
 }

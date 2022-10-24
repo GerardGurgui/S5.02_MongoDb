@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class TiradaDtoConvert {
 
 
-    public TiradaDTO convertTiradaToDTO(Tirada tirada){
+    public static TiradaDTO convertTiradaToDTO(Tirada tirada){
 
         TiradaDTO tiradaDTO = new TiradaDTO();
 
-        tiradaDTO.setId(tirada.getId());
         tiradaDTO.setDado1(tirada.getDado1());
         tiradaDTO.setDado2(tirada.getDado2());
         tiradaDTO.setResultadoTirada(tirada.getResultadoTirada());
@@ -21,11 +20,10 @@ public class TiradaDtoConvert {
 
     }
 
-    public Tirada convertDtoToTirada(TiradaDTO tiradaDTO){
+    public static Tirada convertDtoToTirada(TiradaDTO tiradaDTO){
 
         Tirada tirada = new Tirada();
 
-        tirada.setId(tiradaDTO.getId());
         tirada.setDado1(tiradaDTO.getDado1());
         tirada.setDado2(tiradaDTO.getDado2());
         tirada.setResultadoTirada(tiradaDTO.getResultadoTirada());
