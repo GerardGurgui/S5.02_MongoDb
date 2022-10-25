@@ -17,13 +17,6 @@ public class Tirada {
     private int dado2;
     private int resultadoTirada;
 
-//    @ManyToOne
-//    private Jugador jugador;
-
-
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "tirada_id", referencedColumnName = "id")
-//    private Set<Dado> dados;
 
 
     public Tirada() {
@@ -62,15 +55,6 @@ public class Tirada {
     }
 
 
-
-
-    @Override
-    public String toString() {
-        return "Tirada{" +
-                "id=" + id +
-                ", tirada=" + resultadoTirada +
-                '}';
-    }
 
 
 }

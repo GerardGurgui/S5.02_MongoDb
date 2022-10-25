@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class JugadorService {
@@ -45,12 +46,16 @@ public class JugadorService {
 
         Jugador jugadorEntity = dtoToPlayer.map(jugadorDtoNew);
 
-
         if (jugadorEntity.getId() != null){
 
             throw new IdPlayerException("EL nuevo jugador no puede contener un valor ID");
 
         }
+
+        //COMPROBAR NOMBRE REPETIDO AL CREAR
+        List<Jugador> jugadores = findAllPlayers();
+        GameFunctions.validarNombre(jugadorEntity.getNombre(),jugadores);
+
 
         log.info("Jugador creado correctamente");
 
@@ -101,7 +106,6 @@ public class JugadorService {
 
         //ACTUALIZAMOS LOS ATRIBUTOS QUE SE PUEDEN INTRODUCIR EL USUARIO
         jugadorOpt.get().setNombre(jugadorDTO.getNombre());
-        jugadorOpt.get().setEdad(jugadorDTO.getEdad());
         jugadorOpt.get().setEmail(jugadorDTO.getEmail());
         jugadorOpt.get().setPais(jugadorDTO.getPais());
 
@@ -113,8 +117,9 @@ public class JugadorService {
 
 
 
-        //--> DELETE
-    public void delete (Long id){
+    //FALTAAAAA
+        //--> DELETE TIRADAS 1 JUGADOR
+    public void deleteTiradas(Long id){
 
         Optional<Jugador> jugadorOpt = jugadorRepository.findById(id);
 
@@ -124,8 +129,27 @@ public class JugadorService {
 
         }
 
-        //PENDENT BORRAR TIRADAS
+        Tirada tirada;
+        int i = 0;
 
+        //---- PENDIENTE
+        //PENDENT BORRAR TIRADAS-- comprobar primero si teine tiradas
+        //exception si no tiene
+
+        while (i <= jugadorOpt.get().getTiradas().size() &&
+                   jugadorOpt.get().getTiradas() != null){
+
+            tirada = tiradaRepository.getById(id);
+
+            jugadorOpt.get().getTiradas().remove(tirada);
+            tiradaRepository.delete(tirada);
+            i++;
+        }
+
+
+        if (jugadorOpt.get().getTiradas().isEmpty()){
+            log.warn("Se han eliminado correctamente las tiradas del jugador");
+        }
 
     }
 
@@ -134,7 +158,7 @@ public class JugadorService {
 
     ////FUNCIONALIDADES JUEGO
 
-    //TIRAR DADOS
+    //TIRAR DADOS- REGISTRO TIRADAS - PORCENTAJE
     public Jugador realizarTirada(Long id){
 
         Optional<Jugador> jugadorOpt = jugadorRepository.findById(id);
@@ -146,8 +170,21 @@ public class JugadorService {
 
         Jugador jugador = jugadorOpt.get();
 
-        //TIRA DADOS, MODIFICA VALORES TIRADA DADOS
+        //TIRA DADOS
         Tirada tirada = GameFunctions.tirarDados();
+
+        //COMPROBACIONES PUNTUACION
+        comprobarTirada(jugador,tirada);
+
+        //ASIGNAR TIRADA Y PORCENTAJES
+        asignarTirada(jugador,tirada);
+
+        return jugador;
+
+    }
+
+    public void comprobarTirada(Jugador jugador, Tirada tirada){
+
 
         //COMPRUEBA SUMA DE LA TIRADA
         boolean ganadorRonda = GameFunctions.comprobarTirada(tirada.getResultadoTirada());
@@ -156,20 +193,28 @@ public class JugadorService {
         if (ganadorRonda){
 
             boolean ganadorPartida = GameFunctions.sumarPuntuacionRonda(jugador);
+            jugador.setAcierto(100);
 
             if (ganadorPartida){
                 jugador.setVictoria(1);
             }
+
+        } else {
+            jugador.setAcierto(0);
         }
 
-        //REVISAR BIEN
+    }
+
+    public void asignarTirada(Jugador jugador, Tirada tirada){
+
         jugador.addTirada(tirada);
+
+        int porcentaje = GameFunctions.calcularPorcentaje(jugador);
+        jugador.setAcierto(porcentaje);
 
         //HACE FALTA?? ES RARO, CON JUGADOR DESDE EL MAIN YA SE GUARDA POR LA RELACION
         tiradaRepository.save(tirada);
 
-
-        return jugador;
 
     }
 

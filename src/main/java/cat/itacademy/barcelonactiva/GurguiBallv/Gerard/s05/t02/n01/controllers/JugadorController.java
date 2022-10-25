@@ -3,7 +3,6 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.controllers;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -59,10 +58,10 @@ public class JugadorController {
 
         //--> DELETE
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteTiradas/{id}")
     public void deletePlayer(@PathVariable Long id){
 
-        jugadorService.delete(id);
+        jugadorService.deleteTiradas(id);
     }
 
 

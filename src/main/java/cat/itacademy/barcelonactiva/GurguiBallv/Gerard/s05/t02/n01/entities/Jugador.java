@@ -2,7 +2,6 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities;
 
 import com.sun.istack.NotNull;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -19,12 +18,14 @@ public class Jugador {
 
     @NotNull
     private String nombre;
-    private int edad;
     private String email; //supuestamente recibe calificaciones en email, será DTO
     private String pais; //para tema servidores
 
     private int puntuacion;
     private int victoria;
+
+    @Column(name = "porcentaje_acierto")
+    private int acierto;
     private String contrasenya; // PER ENCRIPTAR SI DONA TEMPS
 
     @Column(name = "fecha_registro")
@@ -41,13 +42,14 @@ public class Jugador {
     public Jugador() {
     }
 
-    public Jugador(String nombre, int edad, String email, String pais) {
+    public Jugador(String nombre,String email, String pais) {
         this.nombre = nombre;
-        this.edad = edad;
         this.email = email;
         this.pais = pais;
 
     }
+
+    ////
 
     public Long getId() {
         return id;
@@ -81,13 +83,6 @@ public class Jugador {
         this.pais = pais;
     }
 
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
 
     public LocalDate getFechaRegistro() {
         return fechaRegistro;
@@ -117,6 +112,14 @@ public class Jugador {
         return victoria;
     }
 
+    public int getAcierto() {
+        return acierto;
+    }
+
+    public void setAcierto(int acierto) {
+        this.acierto = acierto;
+    }
+
     public void setVictoria(int victoria) {
         this.victoria = victoria;
     }
@@ -143,15 +146,4 @@ public class Jugador {
     }
 
 
-    @Override
-    public String toString() {
-        return "Jugador{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", puntuacion=" + puntuacion +
-                ", victoria=" + victoria +
-//                ", localDate=" + localDate +
-//                ", tiradas=" + tiradas +
-                '}';
-    }
 }

@@ -37,7 +37,10 @@ public class S05T02N01GurguiBallveGerardApplication {
 		LocalDate localDate = LocalDate.now();
 
 		//JUGADORES
-//		Jugador jugador1 = new Jugador("Gerard",31,"gerrigb1@hotmail.com","Spain");
+		Jugador jugador1 = new Jugador("hola","gerrigb1@hotmail.com","Spain");
+		Jugador jugador2 = new Jugador("holaa","gerrigb1@hotmail.com","Spain");
+		Jugador jugador3 = new Jugador("holaaa","gerrigb1@hotmail.com","Spain");
+		Jugador jugador4 = new Jugador("holaaaa","gerrigb1@hotmail.com","Spain");
 //		//Proves DTO PASSWORD
 //		jugador1.setContrasenya("password");
 //
@@ -67,7 +70,10 @@ public class S05T02N01GurguiBallveGerardApplication {
 //		jugador2.addTirada(tirada3);
 
 
-//		jugadorRepository.save(jugador1);
+		jugadorRepository.save(jugador1);
+		jugadorRepository.save(jugador2);
+		jugadorRepository.save(jugador3);
+		jugadorRepository.save(jugador4);
 
 //		Optional<Jugador> jugador = jugadorRepository.findById(jugador1.getId());
 //

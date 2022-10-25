@@ -7,7 +7,6 @@ public class JugadorDTO {
 
     //ATRIBUTOS QUE INTRODUCIRÁ EL USUARIO
     private String nombre;
-    private int edad;
     private String email;
     private String pais;
 
@@ -23,13 +22,6 @@ public class JugadorDTO {
         this.nombre = nombre;
     }
 
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
 
     public String getEmail() {
         return email;
