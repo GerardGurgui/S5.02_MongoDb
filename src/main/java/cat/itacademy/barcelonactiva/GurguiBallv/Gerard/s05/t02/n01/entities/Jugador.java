@@ -25,12 +25,13 @@ public class Jugador {
 
     private int puntuacion;
     private int victoria;
-    private String contrasenya; // DTO? JWT SECURITY?
+    private String contrasenya; // PER ENCRIPTAR SI DONA TEMPS
 
     @Column(name = "fecha_registro")
     private LocalDate fechaRegistro;
 
 
+    //Lazy para las peticiones que le pedimos y no todo lo relacionado
     @OneToMany(cascade = CascadeType.ALL,
                fetch = FetchType.LAZY)
     @JoinColumn(name = "id_jugador", referencedColumnName = "id")

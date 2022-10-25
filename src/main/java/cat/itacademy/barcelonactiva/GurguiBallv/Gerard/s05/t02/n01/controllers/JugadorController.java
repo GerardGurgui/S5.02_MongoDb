@@ -36,6 +36,7 @@ public class JugadorController {
     public List<Jugador> getAllPlayers(){
 
         return jugadorService.findAllPlayers();
+
     }
 
 
@@ -48,7 +49,21 @@ public class JugadorController {
 
         //--> UPDATE
 
+    @PutMapping("/updatePlayer/{id}")
+    public ResponseEntity<Jugador> updatePlayer(@RequestBody JugadorDTO jugadorDTO,
+                                                @PathVariable Long id){
+
+        return new ResponseEntity<>(jugadorService.update(jugadorDTO, id), HttpStatus.OK);
+
+    }
+
         //--> DELETE
+
+    @DeleteMapping("/delete/{id}")
+    public void deletePlayer(@PathVariable Long id){
+
+        jugadorService.delete(id);
+    }
 
 
     ////FUNCIONALIDADES JUEGO

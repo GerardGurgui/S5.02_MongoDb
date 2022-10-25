@@ -1,11 +1,12 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service;
 
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.TiradaDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.IdPlayerException;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.game.GameFunctions;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.mapper.DtoJugadorToJugador;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.mapper.DtoToPlayer;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.TiradaRepository;
 import org.slf4j.Logger;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class JugadorService {
@@ -27,13 +27,14 @@ public class JugadorService {
 
     private final TiradaRepository tiradaRepository;
 
-    private final DtoJugadorToJugador mapper;
+    private final DtoToPlayer dtoToPlayer;
 
 
-    public JugadorService(JugadorRepository jugadorRepository, TiradaRepository tiradaRepository, DtoJugadorToJugador mapper){
+    public JugadorService(JugadorRepository jugadorRepository, TiradaRepository tiradaRepository,
+                          DtoToPlayer dtoToPlayer){
         this.jugadorRepository = jugadorRepository;
         this.tiradaRepository = tiradaRepository;
-        this.mapper = mapper;
+        this.dtoToPlayer = dtoToPlayer;
     }
 
 
@@ -42,12 +43,12 @@ public class JugadorService {
         //--> CREATE
     public Jugador createPlayer(JugadorDTO jugadorDtoNew){
 
-        Jugador jugadorEntity = mapper.map(jugadorDtoNew);
+        Jugador jugadorEntity = dtoToPlayer.map(jugadorDtoNew);
 
-        //-- CAMBIAR POR EXCEPTION
+
         if (jugadorEntity.getId() != null){
 
-            log.warn("No puedes crear un jugador con valor en el campo id");
+            throw new IdPlayerException("EL nuevo jugador no puede contener un valor ID");
 
         }
 
@@ -69,9 +70,11 @@ public class JugadorService {
 
         Optional<Jugador> jugadorOpt = jugadorRepository.findById(id);
 
-        //-- CAMBIAR POR EXCEPTION
+
         if (jugadorOpt.isEmpty()){
-            log.warn("no existe el jugador");
+
+            throw new PlayerNotFoundException("No existe el jugador con id " +id);
+
         }
 
         return jugadorOpt.get();
@@ -81,7 +84,51 @@ public class JugadorService {
 
         //--> UPDATE
 
+    public Jugador update(JugadorDTO jugadorDTO, Long id){
+
+        //--> comprobar comportamiento con exceptions
+        if (id == null){
+
+            throw new IdPlayerException("El id del jugador a actualizar no puede ser nulo");
+        }
+
+        if (!jugadorRepository.existsById(id)){
+
+            throw new PlayerNotFoundException("El jugador no existe");
+        }
+
+        Optional<Jugador> jugadorOpt = jugadorRepository.findById(id);
+
+        //ACTUALIZAMOS LOS ATRIBUTOS QUE SE PUEDEN INTRODUCIR EL USUARIO
+        jugadorOpt.get().setNombre(jugadorDTO.getNombre());
+        jugadorOpt.get().setEdad(jugadorDTO.getEdad());
+        jugadorOpt.get().setEmail(jugadorDTO.getEmail());
+        jugadorOpt.get().setPais(jugadorDTO.getPais());
+
+
+        return jugadorRepository.save(jugadorOpt.get());
+
+    }
+
+
+
+
         //--> DELETE
+    public void delete (Long id){
+
+        Optional<Jugador> jugadorOpt = jugadorRepository.findById(id);
+
+        if (jugadorOpt.isEmpty()){
+
+            throw new PlayerNotFoundException("No existe el jugador con id " +id);
+
+        }
+
+        //PENDENT BORRAR TIRADAS
+
+
+    }
+
 
 
 

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 * */
 
 @Component
-public class DtoJugadorToJugador implements IMapper <JugadorDTO, Jugador>{
+public class DtoToPlayer implements IMapper <JugadorDTO, Jugador>{
 
     @Override
     public Jugador map(JugadorDTO jugadorDTO) {
@@ -32,6 +32,7 @@ public class DtoJugadorToJugador implements IMapper <JugadorDTO, Jugador>{
 
         return jugadorEntity;
     }
+
 
 
 
