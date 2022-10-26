@@ -128,8 +128,11 @@ public class JugadorService {
 
         }
 
+        //prova
         Tirada tirada;
+
         int i = 0;
+
 
 
         //---- PENDIENTE
