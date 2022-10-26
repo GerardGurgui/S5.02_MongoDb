@@ -13,8 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class JugadorService {
@@ -105,6 +104,7 @@ public class JugadorService {
 
         //ACTUALIZAMOS LOS ATRIBUTOS QUE SE PUEDEN INTRODUCIR EL USUARIO
         jugadorOpt.get().setNombre(jugadorDTO.getNombre());
+        //EN PRINCIPI NOMES NOM
         jugadorOpt.get().setEmail(jugadorDTO.getEmail());
         jugadorOpt.get().setPais(jugadorDTO.getPais());
 
@@ -128,7 +128,6 @@ public class JugadorService {
 
         }
 
-        //prova4useeer
         Tirada tirada;
 
         int i = 0;
@@ -221,6 +220,26 @@ public class JugadorService {
 
     }
 
-    ////
+
+    //// PORCENTAJES -- CODIGO EN EL SERVICIO MISMO CREO
+    public Map<String,Integer> porcentajeJugadores(){
+
+        //EXCEPTION DE SI TIENE TIRADAS O NO???
+
+        List<Jugador> jugadores = findAllPlayers();
+
+        return GameFunctions.calcularPorcentajeJugadores(jugadores);
+
+    }
+
+
+    public int porcentajeMediaTotal(){
+
+        //TOTAL TIRADAS TOTS ELS JUGADORS * 100 / NUM JUGADORS
+        List<Jugador> jugadores = findAllPlayers();
+
+        return GameFunctions.calcularPorcentajeMedio(jugadores);
+
+    }
 
 }

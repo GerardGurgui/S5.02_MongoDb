@@ -37,8 +37,7 @@ public class S05T02N01GurguiBallveGerardApplication {
 		LocalDate localDate = LocalDate.now();
 
 		//JUGADORES
-		Jugador jugador1 = new Jugador("hola","gerrigb1@hotmail.com","Spain");
-//		Jugador jugador2 = new Jugador("holaa","gerrigb1@hotmail.com","Spain");
+//		Jugador jugador1 = new Jugador("hola","gerrigb1@hotmail.com","Spain");
 //		Jugador jugador3 = new Jugador("holaaa","gerrigb1@hotmail.com","Spain");
 //		Jugador jugador4 = new Jugador("holaaaa","gerrigb1@hotmail.com","Spain");
 //		//Proves DTO PASSWORD
@@ -50,27 +49,27 @@ public class S05T02N01GurguiBallveGerardApplication {
 
 		//INSTANCIAR 2 DADOS PARA CADA JUGADOR?? SE PUEDE REPETIR PARA TIRADA??
 
-		Tirada tirada1 = new Tirada();
-		tirada1.setDado1(2);
-		tirada1.setDado2(6);
-		tirada1.setResultadoTirada(8);
-
-		Tirada tirada2 = new Tirada();
-		tirada2.setDado1(3);
-		tirada2.setDado2(1);
-		tirada2.setResultadoTirada(4);
+//		Tirada tirada1 = new Tirada();
+//		tirada1.setDado1(2);
+//		tirada1.setDado2(6);
+//		tirada1.setResultadoTirada(8);
 //
-//		Tirada tirada3 = new Tirada();
-//		tirada3.setDado1(5);
-//		tirada3.setDado2(4);
-//		tirada3.setResultadoTirada(9);
-
-		jugador1.addTirada(tirada1);
-//		jugador1.addTirada(tirada2);
-//		jugador2.addTirada(tirada3);
-
-
-		jugadorRepository.save(jugador1);
+//		Tirada tirada2 = new Tirada();
+//		tirada2.setDado1(3);
+//		tirada2.setDado2(1);
+//		tirada2.setResultadoTirada(4);
+////
+////		Tirada tirada3 = new Tirada();
+////		tirada3.setDado1(5);
+////		tirada3.setDado2(4);
+////		tirada3.setResultadoTirada(9);
+//
+//		jugador1.addTirada(tirada1);
+////		jugador1.addTirada(tirada2);
+////		jugador2.addTirada(tirada3);
+//
+//
+//		jugadorRepository.save(jugador1);
 
 
 //		Optional<Jugador> jugador = jugadorRepository.findById(jugador1.getId());

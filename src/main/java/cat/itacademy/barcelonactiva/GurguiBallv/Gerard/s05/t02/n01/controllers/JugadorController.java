@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/players")
@@ -77,7 +78,18 @@ public class JugadorController {
 
     }
 
+
         //LISTA DE PORCENTAJE DE CADA JUGADR
+    @GetMapping("/porcentajes/jugadores")
+    public Map<String,Integer> mostrarPorcentajes(){
 
+        return jugadorService.porcentajeJugadores();
+    }
 
+    @GetMapping("/ranking")
+    public int mostrarPorcentajeMediaTotal(){
+
+       return jugadorService.porcentajeMediaTotal();
+
+    }
 }

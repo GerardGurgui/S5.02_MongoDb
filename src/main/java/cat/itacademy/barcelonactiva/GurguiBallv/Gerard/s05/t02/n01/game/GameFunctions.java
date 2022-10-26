@@ -5,7 +5,10 @@ import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tira
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.ExistentUserNameException;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Component
 public class GameFunctions {
@@ -17,8 +20,6 @@ public class GameFunctions {
 
     }
 
-    //--> REGISTRO USER
-        //COMPROBAR NOMBRE NO REPETIDO
 
     public static void validarNombre(String nombre, List<Jugador> jugadores){
 
@@ -93,7 +94,10 @@ public class GameFunctions {
 
     }
 
+
     ////PORCENTAJES-ESTADISTICAS
+
+    //(TOTAL TIRADAS * LAS QUE SE HAN GANADO / JUGADORES)*100
     public static int calcularPorcentajeJugador(Jugador jugador){
 
         //calcular porcentaje
@@ -110,15 +114,42 @@ public class GameFunctions {
 
     }
 
-    public static int calcularPorcentajeJugadores(){
 
+    public static Map<String,Integer> calcularPorcentajeJugadores(List<Jugador> jugadores){
 
-        // PORCENTAJE TOTAL TIRADAS TOTS JUGADORS * 100 / TOTAL JUGADORS
+        Map<String,Integer> jugadoresAcierto = new HashMap<>();
 
+        int acierto;
 
+        for (Jugador jugador : jugadores) {
 
-        return 0;
+            acierto = jugador.getAcierto();
+
+            jugadoresAcierto.put(jugador.getNombre(),acierto);
+
+        }
+
+        return jugadoresAcierto;
 
     }
+
+    public static int calcularPorcentajeMedio(List<Jugador> jugadores){
+
+        Set<Tirada> totalTiradas;
+
+        int total = 0;
+
+        for (Jugador jugadorsIter : jugadores) {
+
+            totalTiradas = jugadorsIter.getTiradas();
+            total += totalTiradas.size();
+
+        }
+
+        return (total * 100) / jugadores.size();
+
+    }
+
+
 
 }
