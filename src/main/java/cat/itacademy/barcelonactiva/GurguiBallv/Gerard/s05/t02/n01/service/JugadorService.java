@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class JugadorService {
@@ -132,6 +131,7 @@ public class JugadorService {
         Tirada tirada;
         int i = 0;
 
+
         //---- PENDIENTE
         //PENDENT BORRAR TIRADAS-- comprobar primero si teine tiradas
         //exception si no tiene
@@ -141,7 +141,7 @@ public class JugadorService {
 
             tirada = tiradaRepository.getById(id);
 
-            jugadorOpt.get().getTiradas().remove(tirada);
+            jugadorOpt.get().getTiradas().clear();
             tiradaRepository.delete(tirada);
             i++;
         }
@@ -197,6 +197,7 @@ public class JugadorService {
 
             if (ganadorPartida){
                 jugador.setVictoria(1);
+                //ALGO QUE ACABE EL JUEGO
             }
 
         } else {
@@ -209,13 +210,14 @@ public class JugadorService {
 
         jugador.addTirada(tirada);
 
-        int porcentaje = GameFunctions.calcularPorcentaje(jugador);
+        int porcentaje = GameFunctions.calcularPorcentajeJugador(jugador);
         jugador.setAcierto(porcentaje);
 
         //HACE FALTA?? ES RARO, CON JUGADOR DESDE EL MAIN YA SE GUARDA POR LA RELACION
         tiradaRepository.save(tirada);
 
-
     }
+
+    ////
 
 }

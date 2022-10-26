@@ -3,14 +3,12 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.game;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.ExistentUserNameException;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class GameFunctions {
-
 
 
     public static void inicioJuego(){
@@ -32,15 +30,11 @@ public class GameFunctions {
 
 
                 throw new ExistentUserNameException("El nombre de usuario ya existe");
-
             }
 
             i++;
         }
-
-
     }
-
 
 
     public static Tirada tirarDados(){
@@ -100,7 +94,7 @@ public class GameFunctions {
     }
 
     ////PORCENTAJES-ESTADISTICAS
-    public static int calcularPorcentaje(Jugador jugador){
+    public static int calcularPorcentajeJugador(Jugador jugador){
 
         //calcular porcentaje
             //necesito la puntuación (cuantos 7 ha sacado)
@@ -112,9 +106,18 @@ public class GameFunctions {
 
         int tiradasRealizadas = jugador.getTiradas().size();
 
-        int porcentaje = (puntuacion * 100)/ tiradasRealizadas;
+        return (puntuacion * 100)/ tiradasRealizadas;
 
-        return porcentaje;
+    }
+
+    public static int calcularPorcentajeJugadores(){
+
+
+        // PORCENTAJE TOTAL TIRADAS TOTS JUGADORS * 100 / TOTAL JUGADORS
+
+
+
+        return 0;
 
     }
 

@@ -20,7 +20,8 @@ public class JugadorController {
         this.jugadorService = jugadorService;
     }
 
-    ////CRUD
+    ////----> CRUD
+
         //--> CREATE
     @PostMapping("/add")
     public ResponseEntity<Jugador> addPlayer(@RequestBody JugadorDTO jugadorDTO){
@@ -67,11 +68,16 @@ public class JugadorController {
 
     ////FUNCIONALIDADES JUEGO
 
+        //JUGADOR REALIZA TIRADA
+
     @PostMapping("/game/tirada/{id}")
     public ResponseEntity<Jugador> realizaTirada(@PathVariable Long id){
 
         return ResponseEntity.ok(jugadorService.realizarTirada(id));
 
     }
+
+        //LISTA DE PORCENTAJE DE CADA JUGADR
+
 
 }
