@@ -3,6 +3,10 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.game;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.ExistentUserNameException;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
+import io.swagger.models.auth.In;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -12,6 +16,8 @@ import java.util.Set;
 
 @Component
 public class GameFunctions {
+
+    private static final Logger log = LoggerFactory.getLogger(JugadorService.class);
 
 
     public static void inicioJuego(){
@@ -150,6 +156,76 @@ public class GameFunctions {
 
     }
 
+    public static int calcularPorcentajeLoser(List<Jugador> jugadores){
 
+
+        Map<String,Integer> jugadaresAcierto = calcularPorcentajeJugadores(jugadores);
+
+        int porcentajeMinimo = 100;
+        int porcentajeMaximo = 0;
+
+        for (Integer porcentaje : jugadaresAcierto.values()) {
+
+            if (porcentaje > porcentajeMaximo){
+                porcentajeMaximo = porcentaje;
+            }
+
+            if (porcentaje < porcentajeMinimo){
+                 porcentajeMinimo = porcentaje;
+            }
+
+        }
+
+        log.info("Percentatge mes gran " +porcentajeMaximo);
+        log.info("Percentatge mes petit " +porcentajeMinimo);
+
+        return porcentajeMinimo;
+    }
+
+    public static Map<String,Integer> calcularPorcentajeWinner(List<Jugador> jugadores){
+
+
+        Map<String,Integer> jugadaresAcierto = calcularPorcentajeJugadores(jugadores);
+
+        int porcentajeMinimo = 100;
+        int porcentajeMaximo = 0;
+        String nombreGanador = " ";
+        String nombrePerdeor = " ";
+
+//        for (Integer porcentaje : jugadaresAcierto.values()) {
+//
+//            if (porcentaje > porcentajeMaximo){
+//                porcentajeMaximo = porcentaje;
+//            }
+//
+//            if (porcentaje < porcentajeMinimo){
+//                porcentajeMinimo = porcentaje;
+//            }
+//
+//        }
+
+
+        for (Map.Entry<String, Integer> nombreAcierto : jugadaresAcierto.entrySet()) {
+
+
+            if (nombreAcierto.getValue() > porcentajeMaximo){
+
+                nombreGanador = nombreAcierto.getKey();
+                porcentajeMaximo = nombreAcierto.getValue();
+            }
+
+            if (nombreAcierto.getValue() < porcentajeMinimo){
+
+                nombrePerdeor = nombreAcierto.getKey();
+                porcentajeMinimo = nombreAcierto.getValue();
+            }
+
+        }
+
+        log.info("Jugador porcentaje maximo: " +nombreGanador+ " " +porcentajeMaximo);
+        log.info("Jugador porcentaje mínimo: " +nombrePerdeor+ " "+porcentajeMinimo);
+
+        return jugadaresAcierto;
+    }
 
 }

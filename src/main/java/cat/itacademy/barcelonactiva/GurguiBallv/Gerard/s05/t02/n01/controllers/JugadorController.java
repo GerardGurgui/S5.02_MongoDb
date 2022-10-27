@@ -79,17 +79,33 @@ public class JugadorController {
     }
 
 
-        //LISTA DE PORCENTAJE DE CADA JUGADR
+        //LISTA DE PORCENTAJE DE CADA JUGADOR
     @GetMapping("/porcentajes/jugadores")
     public Map<String,Integer> mostrarPorcentajes(){
 
         return jugadorService.porcentajeJugadores();
     }
 
+    //EL PORCENTAJE MEDIO TOTAL DE LOS JUGADORES
     @GetMapping("/ranking")
     public int mostrarPorcentajeMediaTotal(){
 
        return jugadorService.porcentajeMediaTotal();
 
     }
+
+    @GetMapping("/ranking/loser")
+    public int mostrarLoser(){
+
+        return jugadorService.porcentajeJugadorLoser();
+
+    }
+
+    @GetMapping("/ranking/winner")
+    public Map<String, Integer> mostrarWinner(){
+
+        return jugadorService.porcentajeJugadorWinner();
+
+    }
+
 }
