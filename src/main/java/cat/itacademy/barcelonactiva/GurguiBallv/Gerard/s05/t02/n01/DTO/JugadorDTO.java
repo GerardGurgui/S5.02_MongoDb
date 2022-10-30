@@ -6,12 +6,22 @@ public class JugadorDTO {
 
 
     //ATRIBUTOS QUE INTRODUCIRÁ EL USUARIO
+
+    private long id;
     private String nombre;
     private String email;
     private String pais;
 
     public JugadorDTO() {
 
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNombre() {

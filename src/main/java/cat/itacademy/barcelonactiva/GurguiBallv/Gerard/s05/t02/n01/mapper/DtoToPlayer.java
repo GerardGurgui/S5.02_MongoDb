@@ -29,6 +29,7 @@ public class DtoToPlayer implements IMapper <JugadorDTO, Jugador>{
             jugadorEntity.setNombre(jugadorDTO.getNombre());
         }
 
+        jugadorEntity.setId(jugadorDTO.getId());
         jugadorEntity.setEmail(jugadorDTO.getEmail());
         jugadorEntity.setPais(jugadorDTO.getPais());
 

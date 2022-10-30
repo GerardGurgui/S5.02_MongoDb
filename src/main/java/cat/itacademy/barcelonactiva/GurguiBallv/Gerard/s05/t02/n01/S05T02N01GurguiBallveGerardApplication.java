@@ -1,11 +1,12 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01;
 
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
+//import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.TiradaRepository;
+//import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.TiradaRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 
 import java.time.LocalDate;
@@ -24,15 +25,13 @@ import java.util.Optional;
 * 				--> https://www.baeldung.com/jpa-entities-serializable
 * */
 
-@SpringBootApplication
+//Exclude para mongo
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 public class S05T02N01GurguiBallveGerardApplication {
 
 	public static void main(String[] args) {
 
-		ApplicationContext context = SpringApplication.run(S05T02N01GurguiBallveGerardApplication.class, args);
-		JugadorRepository jugadorRepository = context.getBean(JugadorRepository.class);
-		TiradaRepository tiradaRepository = context.getBean(TiradaRepository.class);
-
+		SpringApplication.run(S05T02N01GurguiBallveGerardApplication.class, args);
 
 		LocalDate localDate = LocalDate.now();
 
