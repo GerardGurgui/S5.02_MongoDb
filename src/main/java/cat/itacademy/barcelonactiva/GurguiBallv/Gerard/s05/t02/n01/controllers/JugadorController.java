@@ -1,141 +1,125 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.controllers;
 
+
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.CollectionsGeneratorService;
-//import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/players")
 public class JugadorController {
 
-
-//    private final JugadorService jugadorService;
-
-    private final CollectionsGeneratorService collectionsGeneratorService;
-
     private final JugadorService jugadorService;
+    private final JugadorRepository jugadorRepository;
 
 
-    public JugadorController(CollectionsGeneratorService collectionsGeneratorService, JugadorService jugadorService){
+    public JugadorController(JugadorService jugadorService, JugadorRepository jugadorRepository) {
         this.jugadorService = jugadorService;
-        this.collectionsGeneratorService = collectionsGeneratorService;
+        this.jugadorRepository = jugadorRepository;
     }
 
-    ////----> CRUD
 
-        //--> CREATE
+    //--> CREATE
+
     @PostMapping("/add")
-    public Jugador addPlayer(@Validated @RequestBody JugadorDTO jugadorDTO){
+    public Jugador addPlayer(@RequestBody JugadorDTO jugadorDTO){
 
-        jugadorDTO.setId(collectionsGeneratorService.generateCollection(Jugador.SEQUENCE_NAME));
-
-        return jugadorService.createPlayer(jugadorDTO);
-
-
-
-//        return new ResponseEntity<>(jugadorService.createPlayer(jugadorDTO), HttpStatus.CREATED);
+        return jugadorService.create(jugadorDTO);
 
     }
 
+    //--> READ
 
-        //--> READ
     @GetMapping("/findAll")
     public List<Jugador> getAllPlayers(){
 
-        return jugadorService.findAllPlayers();
+        return jugadorService.getAll();
+
+    }
+
+    @GetMapping("/findOne/{id}")
+    public ResponseEntity<Jugador> getOnePlayer(@PathVariable String id){
+
+        return ResponseEntity.ok(jugadorService.getOne(id));
 
     }
 
 
-//    @GetMapping("/findOne/{id}")
-//    public ResponseEntity<Jugador> getOnePlayer(@PathVariable Long id){
-//
-//        return ResponseEntity.ok(jugadorService.getOne(id));
-//
-//    }
-//
-//        //--> UPDATE
-//
-//    @PutMapping("/updatePlayer/{id}")
-//    public ResponseEntity<Jugador> updatePlayer(@RequestBody JugadorDTO jugadorDTO,
-//                                                @PathVariable Long id){
-//
-//        return new ResponseEntity<>(jugadorService.update(jugadorDTO, id), HttpStatus.OK);
-//
-//    }
-//
-//        //--> DELETE
-//
-//    @DeleteMapping("/deleteTiradas/{id}")
-//    public void deletePlayer(@PathVariable Long id){
-//
-//        jugadorService.deleteTiradas(id);
-//    }
+    @GetMapping("/getTiradas/{idJugador}")
+    public List<Tirada> getAllDadosOnePlayer(@PathVariable String idJugador){
+
+        return jugadorService.getDadosOnePlayer(idJugador);
+
+    }
 
 
-    ////FUNCIONALIDADES JUEGO
+    //--> UPDATE
 
-        //INICIO JUEGO
+    @PutMapping("/updatePlayer/{id}")
+    public ResponseEntity<Jugador> updatePlayer(@RequestBody JugadorDTO jugadorDTO,
+                                                @PathVariable String id){
+
+        return new ResponseEntity<>(jugadorService.update(jugadorDTO, id), HttpStatus.OK);
+
+    }
 
 
+    //--> DELETE
+
+    @DeleteMapping("/deleteTiradas/{id}")
+    public void deleteDadosOnePlayer(@PathVariable String id){
+
+        jugadorService.deleteTiradasOnePlayer(id);
+
+    }
 
 
+    ////// DADOS
+    @PostMapping("/game/tirada/{id}")
+    public Jugador tirarDados(@PathVariable String id){
 
-        //JUGADOR REALIZA TIRADA
+        return jugadorService.realizarTirada(id);
 
-//    @PostMapping("/game/tirada/{id}")
-//    public ResponseEntity<Jugador> realizaTirada(@PathVariable Long id){
-//
-//        return ResponseEntity.ok(jugadorService.realizarTirada(id));
-//
-//    }
-//
-//
-//        //LISTA DE PORCENTAJE DE CADA JUGADOR
-//    @GetMapping("/porcentajes/jugadores")
-//    public Map<String,Integer> mostrarPorcentajes(){
-//
-//        return jugadorService.porcentajeJugadores();
-//    }
-//
-//    //EL PORCENTAJE MEDIO TOTAL DE LOS JUGADORES
-//    @GetMapping("/ranking")
-//    public int mostrarPorcentajeMediaTotal(){
-//
-//       return jugadorService.porcentajeMediaTotal();
-//
-//    }
-//
-//    @GetMapping("/ranking/loser")
-//    public Map<String, Integer> mostrarLoser(){
-//
-//        return jugadorService.porcentajeJugadorLoser();
-//
-//    }
-//
-//    @GetMapping("/ranking/winner")
-//    public Map<String, Integer> mostrarWinner(){
-//
-//        return jugadorService.porcentajeJugadorWinner();
-//
-//    }
+    }
 
+
+    //// PORCENTAJES
+
+    //LISTA DE PORCENTAJE DE CADA JUGADOR
+    @GetMapping("/porcentajes/jugadores")
+    public Map<String,Integer> mostrarPorcentajes(){
+
+        return jugadorService.porcentajeJugadores();
+    }
+
+    //EL PORCENTAJE MEDIO TOTAL DE LOS JUGADORES
+    @GetMapping("/ranking")
+    public int mostrarPorcentajeMediaTotal(){
+
+        return jugadorService.porcentajeMediaTotal();
+
+    }
+
+    @GetMapping("/ranking/loser")
+    public Map<String, Integer> mostrarLoser(){
+
+        return jugadorService.porcentajeJugadorLoser();
+
+    }
+
+    @GetMapping("/ranking/winner")
+    public Map<String, Integer> mostrarWinner(){
+
+        return jugadorService.porcentajeJugadorWinner();
+
+    }
 
 }

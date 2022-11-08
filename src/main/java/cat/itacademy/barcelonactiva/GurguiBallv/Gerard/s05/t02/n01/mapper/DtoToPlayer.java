@@ -2,9 +2,12 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.mapper;
 
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /*
 * Convertir de jugadorDto a JugadorEntidad
@@ -16,6 +19,15 @@ import java.time.LocalDate;
 @Component
 public class DtoToPlayer implements IMapper <JugadorDTO, Jugador>{
 
+
+    @Autowired
+    private JugadorRepository jugadorRepository;
+
+    public DtoToPlayer(JugadorRepository jugadorRepository){
+        this.jugadorRepository = jugadorRepository;
+    }
+
+
     @Override
     public Jugador map(JugadorDTO jugadorDTO) {
 
@@ -24,15 +36,11 @@ public class DtoToPlayer implements IMapper <JugadorDTO, Jugador>{
         //QUE PASA SI HAY 2 ANONIMOS??
         if (jugadorDTO.getNombre().isEmpty()){
             jugadorEntity.setNombre("Anónimo");
-
         } else {
             jugadorEntity.setNombre(jugadorDTO.getNombre());
         }
 
-        jugadorEntity.setId(jugadorDTO.getId());
         jugadorEntity.setEmail(jugadorDTO.getEmail());
-        jugadorEntity.setPais(jugadorDTO.getPais());
-
         jugadorEntity.setFechaRegistro(LocalDate.now());
         jugadorEntity.setPuntuacion(0);
         jugadorEntity.setVictoria(0);

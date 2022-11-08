@@ -1,74 +1,46 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities;
 
-import com.sun.istack.NotNull;
-import net.bytebuddy.implementation.bind.MethodDelegationBinder;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import javax.persistence.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-//@DOCUMENT en lugar de @ENTITY
 @Document(collection = "jugadores")
 public class Jugador {
 
-    @Transient
-    public static final String SEQUENCE_NAME = "user_sequence";
-
-    //ID SIN AUTO GENERATED
-    //long primitiu
     @Id
-    private long id;
-
-    //INDEXAMOS LOS 2 CAMPOS PARA QUE SEAN ÚNICOS
-    @Indexed(unique = true)
+    private String id;
     private String nombre;
-
-    @Indexed(unique = true)
     private String email;
-
-    private String pais;
 
     private int puntuacion;
     private int victoria;
-
-//    @Column(name = "porcentaje_acierto")
     private int acierto;
-    private String contrasenya; // PER ENCRIPTAR SI DONA TEMPS
 
-//    @Column(name = "fecha_registro")
     private LocalDate fechaRegistro;
 
 
-//    //Lazy para las peticiones que le pedimos y no todo lo relacionado
-//    @OneToMany(cascade = CascadeType.ALL,
-//               fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_jugador", referencedColumnName = "id")
-//    private Set<Tirada> tiradas;
+//    @DBRef
+    private List<Tirada> tiradas;
 
 
     public Jugador() {
     }
 
-//    public Jugador(String nombre,String email, String pais) {
-//        this.nombre = nombre;
-//        this.email = email;
-//        this.pais = pais;
-//
-//    }
 
-    ////
-
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,23 +60,6 @@ public class Jugador {
         this.email = email;
     }
 
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
-
-    public LocalDate getFechaRegistro() {
-        return fechaRegistro;
-    }
-
-    public void setFechaRegistro(LocalDate fechaRegistro) {
-        this.fechaRegistro = fechaRegistro;
-    }
-
     public int getPuntuacion() {
         return puntuacion;
     }
@@ -113,16 +68,12 @@ public class Jugador {
         this.puntuacion = puntuacion;
     }
 
-//    public Set<Tirada> getTiradas() {
-//        return tiradas;
-//    }
-//
-//    public void setTiradas(Set<Tirada> tiradas) {
-//        this.tiradas = tiradas;
-//    }
-
     public int getVictoria() {
         return victoria;
+    }
+
+    public void setVictoria(int victoria) {
+        this.victoria = victoria;
     }
 
     public int getAcierto() {
@@ -133,30 +84,33 @@ public class Jugador {
         this.acierto = acierto;
     }
 
-    public void setVictoria(int victoria) {
-        this.victoria = victoria;
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public String getContrasenya() {
-        return contrasenya;
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
-    public void setContrasenya(String contrasenya) {
-        this.contrasenya = contrasenya;
+    public List<Tirada> getTiradas() {
+        return tiradas;
     }
 
-    ////
-//    public void addTirada(Tirada tirada){
-//
-//        if (tiradas == null){
-//            tiradas = new HashSet<>();
-//        }
-//
-//        tiradas.add(tirada);
-//
-////        tirada.setJugador(this);
-//
-//    }
+    public void setTiradas(List<Tirada> tiradas) {
+        this.tiradas = tiradas;
+    }
 
 
+    //ADD TIRADAS JUGADOR
+
+    public void addTirada(Tirada tirada){
+
+        if (tiradas == null){
+
+            tiradas = new ArrayList<>();
+        }
+
+        tiradas.add(tirada);
+
+    }
 }
