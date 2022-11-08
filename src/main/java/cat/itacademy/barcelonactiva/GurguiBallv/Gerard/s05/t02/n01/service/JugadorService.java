@@ -20,9 +20,7 @@ import java.util.Optional;
 public class JugadorService {
 
     private final JugadorRepository jugadorRepository;
-
     private final DtoToPlayer mapper;
-
     private final TiradaRepository tiradaRepository;
 
     public JugadorService(JugadorRepository jugadorRepository, DtoToPlayer mapper, TiradaRepository tiradaRepository) {
@@ -30,7 +28,6 @@ public class JugadorService {
         this.mapper = mapper;
         this.tiradaRepository = tiradaRepository;
     }
-
 
 
     ////CRUD
@@ -55,11 +52,11 @@ public class JugadorService {
 
         //--> READ
 
-
     public List<Jugador> getAll(){
 
         return jugadorRepository.findAll();
     }
+
 
     public Jugador getOne(String id){
 
@@ -124,7 +121,6 @@ public class JugadorService {
 
         Jugador jugador = jugadorRepository.findById(id).get();
 
-
         Tirada tirada = GameFunctions.tirarDados();
 
         comprobarTirada(jugador,tirada);
@@ -139,7 +135,6 @@ public class JugadorService {
 
         //COMPRUEBA SUMA DE LA TIRADA
         boolean ganadorRonda = GameFunctions.comprobarTirada(tirada.getResultado());
-
 
         //COMPRUEBA TOTAL RONDAS GANADAS
         if (ganadorRonda) {
@@ -160,13 +155,15 @@ public class JugadorService {
 
     public void asignarTirada(Jugador jugador, Tirada tirada) {
 
+        //añadir la tirada al jugador
         jugador.addTirada(tirada);
         tirada.setIdJugador(jugador.getId());
 
+        //con el resultado de la tirada y sus puntuaciones calculamos el porcentaje
         int porcentaje = GameFunctions.calcularPorcentajeJugador(jugador);
         jugador.setAcierto(porcentaje);
 
-        //HACE FALTA?? ES RARO, CON JUGADOR DESDE EL MAIN YA SE GUARDA POR LA RELACION
+        //guardar cambios en repositorios
         jugadorRepository.save(jugador);
         tiradaRepository.save(tirada);
 
