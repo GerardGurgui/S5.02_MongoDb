@@ -4,6 +4,7 @@ import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDT
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -23,6 +24,9 @@ public class DtoToPlayer implements IMapper <JugadorDTO, Jugador>{
     @Autowired
     private JugadorRepository jugadorRepository;
 
+    @Autowired
+    private PasswordEncoder encoder; //añadir SQL
+
     public DtoToPlayer(JugadorRepository jugadorRepository){
         this.jugadorRepository = jugadorRepository;
     }
@@ -41,6 +45,7 @@ public class DtoToPlayer implements IMapper <JugadorDTO, Jugador>{
         }
 
         jugadorEntity.setEmail(jugadorDTO.getEmail());
+        jugadorEntity.setContrasenya(encoder.encode(jugadorDTO.getContrasenya())); // añadir SQl
         jugadorEntity.setFechaRegistro(LocalDate.now());
         jugadorEntity.setPuntuacion(0);
         jugadorEntity.setVictoria(0);

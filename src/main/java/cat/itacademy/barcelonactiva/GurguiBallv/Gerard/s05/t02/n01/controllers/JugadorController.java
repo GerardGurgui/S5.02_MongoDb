@@ -6,8 +6,10 @@ import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Juga
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +21,8 @@ public class JugadorController {
 
     private final JugadorService jugadorService;
     private final JugadorRepository jugadorRepository;
+
+
 
 
     public JugadorController(JugadorService jugadorService, JugadorRepository jugadorRepository) {
@@ -73,6 +77,13 @@ public class JugadorController {
 
 
     //--> DELETE
+
+    @DeleteMapping("/delete/{id}")
+    public void deletePlayer(@PathVariable String id){
+
+        jugadorService.deleteOnePlayer(id);
+
+    }
 
     @DeleteMapping("/deleteTiradas/{id}")
     public void deleteDadosOnePlayer(@PathVariable String id){

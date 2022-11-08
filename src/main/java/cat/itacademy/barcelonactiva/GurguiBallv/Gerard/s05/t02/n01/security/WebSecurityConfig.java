@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
 
+//AÑADIR A SQL
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -23,13 +25,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+
         //primeras pruebas: gets permitidos para todos
         //admin solo borrar y update por ejemplo
+        http.cors().and().csrf().disable(); //desactivar cross-cheking
 
         http.authorizeRequests()
                 .antMatchers("/players/findAll").permitAll()
                 .antMatchers("/players/findOne/{id}").permitAll()
-                .antMatchers("/players/getTiradas/{idJugador}").hasRole("ADMIN")
+                .antMatchers("/players/getTiradas/{idJugador}").permitAll()
+                .antMatchers("/players/add").hasRole("ADMIN")
+                .antMatchers("/players/delete/{id}").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -51,6 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin").password(passwordEncoder().encode("1234admin")).roles("USER", "ADMIN");
 
     }
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){

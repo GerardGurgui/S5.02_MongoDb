@@ -102,6 +102,12 @@ public class JugadorService {
 
         //--> DELETE
 
+    public void deleteOnePlayer(String id){
+
+        jugadorRepository.deleteById(id);
+
+    }
+
 
     public void deleteTiradasOnePlayer(String id){
 

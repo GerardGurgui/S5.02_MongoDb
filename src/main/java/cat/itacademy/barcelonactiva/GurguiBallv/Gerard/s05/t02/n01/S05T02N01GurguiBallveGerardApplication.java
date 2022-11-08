@@ -2,6 +2,8 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01;
 
 //import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
 //import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
 //import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.TiradaRepository;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 
@@ -38,19 +41,18 @@ public class S05T02N01GurguiBallveGerardApplication {
 
 		ApplicationContext context = SpringApplication.run(S05T02N01GurguiBallveGerardApplication.class, args);
 
-		JugadorRepository jugadorRepository = context.getBean(JugadorRepository.class);
-
-		LocalDate localDate = LocalDate.now();
+//		JugadorRepository jugadorRepository = context.getBean(JugadorRepository.class);
+//
+//		PasswordEncoder encoder = context.getBean(PasswordEncoder.class);
+//
+//		LocalDate localDate = LocalDate.now();
 //
 //		Jugador jugador = new Jugador();
 //
-//		jugador.setId(100);
+//		jugador.setContrasenya(encoder.encode("gerard"));
 //
-//		Tirada tirada = new Tirada(3,6,9);
-//		Tirada tirada1 = new Tirada(3,6,9);
 //
-//		jugador.addTirada(tirada);
-//		jugador.addTirada(tirada1);
+//
 //
 //		jugadorRepository.save(jugador);
 

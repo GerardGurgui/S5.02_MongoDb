@@ -20,6 +20,7 @@ public class Jugador {
     private String id;
     private String nombre;
     private String email;
+    private String contrasenya; // añadir SQL
 
     private int puntuacion;
     private int victoria;
@@ -58,6 +59,14 @@ public class Jugador {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getContrasenya() {
+        return contrasenya;
+    }
+
+    public void setContrasenya(String contrasenya) {
+        this.contrasenya = contrasenya;
     }
 
     public int getPuntuacion() {
