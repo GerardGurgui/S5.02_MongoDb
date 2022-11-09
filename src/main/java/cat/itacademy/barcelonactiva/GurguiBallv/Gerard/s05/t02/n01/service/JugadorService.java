@@ -40,10 +40,10 @@ public class JugadorService {
 
         Boolean existe = jugadorRepository.existsBynombreIgnoreCase(jugadorEntity.getNombre());
 
-        if (existe){
+        if (existe && !jugadorEntity.getNombre().equalsIgnoreCase("Anónimo")){
+
             throw new ExistentUserNameException("El nombre del jugador ya existe");
         }
-
 
         return jugadorRepository.save(jugadorEntity);
 
@@ -51,7 +51,6 @@ public class JugadorService {
 
 
         //--> READ
-
     public List<Jugador> getAll(){
 
         return jugadorRepository.findAll();

@@ -28,14 +28,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //primeras pruebas: gets permitidos para todos
         //admin solo borrar y update por ejemplo
-        http.cors().and().csrf().disable(); //desactivar cross-cheking
+        http.cors().and().csrf().disable(); //desactivar cross-cheking, error 403 con metodos POST
 
         http.authorizeRequests()
                 .antMatchers("/players/findAll").permitAll()
                 .antMatchers("/players/findOne/{id}").permitAll()
                 .antMatchers("/players/getTiradas/{idJugador}").permitAll()
+                .antMatchers("/players/porcentajes/jugadores").permitAll()
+                .antMatchers("/players/porcentajes/jugadores").permitAll()
+                .antMatchers("/players/ranking").permitAll()
+                .antMatchers("/players/ranking/loser").permitAll()
+                .antMatchers("/players/ranking/winner").permitAll()
+
                 .antMatchers("/players/add").hasRole("ADMIN")
                 .antMatchers("/players/delete/{id}").hasRole("ADMIN")
+                .antMatchers("/players/updatePlayer/{id}").hasRole("ADMIN")
+
+                .antMatchers("/players/deleteTiradas/{id}").hasRole("USER")
+                .antMatchers("/players/game/tirada/{id}").hasRole("USER")
                 .anyRequest()
                 .authenticated()
                 .and()
