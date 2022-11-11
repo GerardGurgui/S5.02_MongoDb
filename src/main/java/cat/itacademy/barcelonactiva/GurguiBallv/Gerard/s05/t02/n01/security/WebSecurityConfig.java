@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable(); //desactivar cross-cheking, error 403 con metodos POST
 
         http.authorizeRequests()
+                //GETS DE PLAYERS
                 .antMatchers("/players/findAll").permitAll()
                 .antMatchers("/players/findOne/{id}").permitAll()
                 .antMatchers("/players/getTiradas/{idJugador}").permitAll()
@@ -39,6 +40,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/players/ranking").permitAll()
                 .antMatchers("/players/ranking/loser").permitAll()
                 .antMatchers("/players/ranking/winner").permitAll()
+                //REGISTRO
+                .antMatchers("/registro").permitAll()
+                .antMatchers("/registro/show").permitAll()
 
                 .antMatchers("/players/add").hasRole("ADMIN")
                 .antMatchers("/players/delete/{id}").hasRole("ADMIN")
