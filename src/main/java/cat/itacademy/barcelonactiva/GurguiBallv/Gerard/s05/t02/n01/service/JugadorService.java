@@ -3,6 +3,7 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.ExistentEmailException;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.ExistentUserNameException;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.IdPlayerException;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.PlayerNotFoundException;
@@ -29,18 +30,16 @@ public class JugadorService {
         this.tiradaRepository = tiradaRepository;
     }
 
-
     ////CRUD
-
         //--> CREATE
-
     public Jugador create(JugadorDTO jugadorDTO){
 
         Jugador jugadorEntity = mapper.map(jugadorDTO);
 
-        Boolean existe = jugadorRepository.existsBynombreIgnoreCase(jugadorEntity.getNombre());
+        Boolean existe = jugadorRepository.existsByUsername(jugadorEntity.getUsername());
 
-        if (existe && !jugadorEntity.getNombre().equalsIgnoreCase("Anónimo")){
+
+        if (existe && !jugadorEntity.getUsername().equalsIgnoreCase("Anónimo")){
 
             throw new ExistentUserNameException("El nombre del jugador ya existe");
         }
@@ -72,13 +71,23 @@ public class JugadorService {
 
     public List<Tirada> getDadosOnePlayer(String idJugador){
 
-        return tiradaRepository.findByIdJugadorIgnoreCase(idJugador);
+        return tiradaRepository.findByidJugadorIgnoreCase(idJugador);
 
     }
 
         //--> UPDATE
 
     public Jugador update(JugadorDTO jugadorDTO, String id){
+
+        if (jugadorRepository.existsByUsername(jugadorDTO.getUsername())){
+
+            throw new ExistentUserNameException("El nombre del jugador ya existe");
+        }
+
+        if (jugadorRepository.existsByEmail(jugadorDTO.getEmail())){
+
+            throw new ExistentEmailException("El email ya existe");
+        }
 
         if (id == null) {
 
@@ -92,7 +101,7 @@ public class JugadorService {
 
         Optional<Jugador> jugadorOpt = jugadorRepository.findById(id);
 
-        jugadorOpt.get().setNombre(jugadorDTO.getNombre());
+        jugadorOpt.get().setUsername(jugadorDTO.getUsername());
         jugadorOpt.get().setEmail(jugadorDTO.getEmail());
 
         return jugadorRepository.save(jugadorOpt.get());
@@ -110,12 +119,11 @@ public class JugadorService {
 
     public void deleteTiradasOnePlayer(String id){
 
-        List<Tirada> listaTiradas = tiradaRepository.findByIdJugadorIgnoreCase(id);
+        Jugador jugador = getOne(id);
 
-        for (Tirada tirada : listaTiradas) {
+        List<Tirada> listaTiradas = jugador.getTiradas();
 
-            tiradaRepository.delete(tirada);
-        }
+        tiradaRepository.deleteAllById(listaTiradas,id);
 
     }
 

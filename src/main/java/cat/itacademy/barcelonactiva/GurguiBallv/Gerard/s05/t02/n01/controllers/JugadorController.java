@@ -5,6 +5,7 @@ import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDT
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.security.payload.MessageResponse;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,23 +34,23 @@ public class JugadorController {
 
     //--> CREATE
 
-    @PostMapping("/add")
-    public Jugador addPlayer(@RequestBody JugadorDTO jugadorDTO){
-
-        return jugadorService.create(jugadorDTO);
-
-    }
+//    @PostMapping("/add")
+//    public Jugador addPlayer(@RequestBody JugadorDTO jugadorDTO){
+//
+//        return jugadorService.create(jugadorDTO);
+//
+//    }
 
     //--> READ
 
-    @GetMapping("/findAll")
+    @GetMapping("/get/findAll")
     public List<Jugador> getAllPlayers(){
 
         return jugadorService.getAll();
 
     }
 
-    @GetMapping("/findOne/{id}")
+    @GetMapping("/get/findOne/{id}")
     public ResponseEntity<Jugador> getOnePlayer(@PathVariable String id){
 
         return ResponseEntity.ok(jugadorService.getOne(id));
@@ -57,7 +58,7 @@ public class JugadorController {
     }
 
 
-    @GetMapping("/getTiradas/{idJugador}")
+    @GetMapping("/get/getTiradas/{idJugador}")
     public List<Tirada> getAllDadosOnePlayer(@PathVariable String idJugador){
 
         return jugadorService.getDadosOnePlayer(idJugador);
@@ -79,17 +80,20 @@ public class JugadorController {
     //--> DELETE
 
     @DeleteMapping("/delete/{id}")
-    public void deletePlayer(@PathVariable String id){
+    public ResponseEntity<MessageResponse> deletePlayer(@PathVariable String id){
 
         jugadorService.deleteOnePlayer(id);
+
+        return ResponseEntity.ok().body(new MessageResponse("Jugador eliminado correctamente"));
 
     }
 
     @DeleteMapping("/deleteTiradas/{id}")
-    public void deleteDadosOnePlayer(@PathVariable String id){
+    public ResponseEntity<MessageResponse> deleteDadosOnePlayer(@PathVariable String id){
 
         jugadorService.deleteTiradasOnePlayer(id);
 
+        return ResponseEntity.ok().body(new MessageResponse("Tiradas del jugador eliminadas"));
     }
 
 
@@ -105,28 +109,28 @@ public class JugadorController {
     //// PORCENTAJES
 
     //LISTA DE PORCENTAJE DE CADA JUGADOR
-    @GetMapping("/porcentajes/jugadores")
+    @GetMapping("/get/porcentajes/jugadores")
     public Map<String,Integer> mostrarPorcentajes(){
 
         return jugadorService.porcentajeJugadores();
     }
 
     //EL PORCENTAJE MEDIO TOTAL DE LOS JUGADORES
-    @GetMapping("/ranking")
+    @GetMapping("/get/ranking")
     public int mostrarPorcentajeMediaTotal(){
 
         return jugadorService.porcentajeMediaTotal();
 
     }
 
-    @GetMapping("/ranking/loser")
+    @GetMapping("/get/ranking/loser")
     public Map<String, Integer> mostrarLoser(){
 
         return jugadorService.porcentajeJugadorLoser();
 
     }
 
-    @GetMapping("/ranking/winner")
+    @GetMapping("/get/ranking/winner")
     public Map<String, Integer> mostrarWinner(){
 
         return jugadorService.porcentajeJugadorWinner();

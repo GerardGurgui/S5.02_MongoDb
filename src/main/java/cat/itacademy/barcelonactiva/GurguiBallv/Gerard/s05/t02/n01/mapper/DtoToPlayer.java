@@ -2,13 +2,11 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.mapper;
 
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /*
 * Convertir de jugadorDto a JugadorEntidad
@@ -20,17 +18,8 @@ import java.time.LocalDateTime;
 @Component
 public class DtoToPlayer implements IMapper <JugadorDTO, Jugador>{
 
-
     @Autowired
-    private JugadorRepository jugadorRepository;
-
-    @Autowired
-    private PasswordEncoder encoder; //añadir SQL
-
-    public DtoToPlayer(JugadorRepository jugadorRepository){
-        this.jugadorRepository = jugadorRepository;
-    }
-
+    private PasswordEncoder encoder;
 
     @Override
     public Jugador map(JugadorDTO jugadorDTO) {
@@ -38,14 +27,14 @@ public class DtoToPlayer implements IMapper <JugadorDTO, Jugador>{
         Jugador jugadorEntity = new Jugador();
 
 //        QUE PASA SI HAY 2 ANONIMOS??
-        if (jugadorDTO.getNombre().isEmpty()){
-            jugadorEntity.setNombre("Anónimo");
+        if (jugadorDTO.getUsername().isEmpty()){
+            jugadorEntity.setUsername("Anónimo");
         } else {
-            jugadorEntity.setNombre(jugadorDTO.getNombre());
+            jugadorEntity.setUsername(jugadorDTO.getUsername());
         }
 
         jugadorEntity.setEmail(jugadorDTO.getEmail());
-        jugadorEntity.setContrasenya(encoder.encode(jugadorDTO.getContrasenya())); // añadir SQl
+        jugadorEntity.setPassword(encoder.encode(jugadorDTO.getPassword()));
         jugadorEntity.setFechaRegistro(LocalDate.now());
         jugadorEntity.setPuntuacion(0);
         jugadorEntity.setVictoria(0);

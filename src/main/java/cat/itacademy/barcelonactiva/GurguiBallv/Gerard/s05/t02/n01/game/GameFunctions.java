@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 //CONTROLLER OR COMPONENT??
 @Controller
@@ -27,7 +26,7 @@ public class GameFunctions {
 
         while (i < jugadores.size()){
 
-            if (jugadores.get(i).getNombre().equals(nombre)){
+            if (jugadores.get(i).getUsername().equals(nombre)){
 
                 throw new ExistentUserNameException("El nombre de usuario ya existe");
             }
@@ -125,7 +124,7 @@ public class GameFunctions {
 
             acierto = calcularPorcentajeJugador(jugador);
 
-            jugadoresAcierto.put(jugador.getNombre(),acierto);
+            jugadoresAcierto.put(jugador.getUsername(),acierto);
 
         }
 

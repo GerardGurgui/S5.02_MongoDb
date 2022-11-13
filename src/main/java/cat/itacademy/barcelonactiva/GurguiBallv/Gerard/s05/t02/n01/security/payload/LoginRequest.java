@@ -1,15 +1,12 @@
-package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO;
+package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.security.payload;
 
-
-public class JugadorDTO {
+public class LoginRequest {
 
     private String username;
-    private String password; //AÑADIR SQL
-    private String email;
+    private String password;
 
-    public JugadorDTO() {
+    public LoginRequest() {
     }
-
 
     public String getUsername() {
         return username;
@@ -26,15 +23,4 @@ public class JugadorDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-
 }

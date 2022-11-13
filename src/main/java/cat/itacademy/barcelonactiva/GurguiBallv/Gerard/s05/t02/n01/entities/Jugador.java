@@ -1,15 +1,10 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +13,9 @@ public class Jugador {
 
     @Id
     private String id;
-    private String nombre;
+    private String username;
     private String email;
-    private String contrasenya; // añadir SQL
+    private String password;
 
     private int puntuacion;
     private int victoria;
@@ -45,12 +40,12 @@ public class Jugador {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -61,12 +56,12 @@ public class Jugador {
         this.email = email;
     }
 
-    public String getContrasenya() {
-        return contrasenya;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContrasenya(String contrasenya) {
-        this.contrasenya = contrasenya;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getPuntuacion() {
