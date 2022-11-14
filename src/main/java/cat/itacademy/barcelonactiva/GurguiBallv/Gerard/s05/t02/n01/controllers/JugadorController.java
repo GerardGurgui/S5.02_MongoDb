@@ -8,6 +8,7 @@ import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.security.payload.MessageResponse;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,9 +23,6 @@ public class JugadorController {
 
     private final JugadorService jugadorService;
     private final JugadorRepository jugadorRepository;
-
-
-
 
     public JugadorController(JugadorService jugadorService, JugadorRepository jugadorRepository) {
         this.jugadorService = jugadorService;
@@ -99,7 +97,10 @@ public class JugadorController {
 
     ////// DADOS
     @PostMapping("/game/tirada/{id}")
-    public Jugador tirarDados(@PathVariable String id){
+    public Jugador tirarDados(@PathVariable String id,
+                              @RequestHeader(HttpHeaders.AUTHORIZATION)
+                              String token){
+
 
         return jugadorService.realizarTirada(id);
 

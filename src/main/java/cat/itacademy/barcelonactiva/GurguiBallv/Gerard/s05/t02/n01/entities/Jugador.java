@@ -117,4 +117,19 @@ public class Jugador {
         tiradas.add(tirada);
 
     }
+
+    @Override
+    public String toString() {
+        return "Jugador{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", puntuacion=" + puntuacion +
+                ", victoria=" + victoria +
+                ", acierto=" + acierto +
+                ", fechaRegistro=" + fechaRegistro +
+                ", tiradas=" + tiradas +
+                '}';
+    }
 }

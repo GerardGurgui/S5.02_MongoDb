@@ -26,7 +26,7 @@ public class DtoToPlayer implements IMapper <JugadorDTO, Jugador>{
 
         Jugador jugadorEntity = new Jugador();
 
-//        QUE PASA SI HAY 2 ANONIMOS??
+
         if (jugadorDTO.getUsername().isEmpty()){
             jugadorEntity.setUsername("Anónimo");
         } else {

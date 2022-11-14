@@ -108,6 +108,7 @@ public class JugadorService {
 
     }
 
+
         //--> DELETE
 
     public void deleteOnePlayer(String id){
@@ -122,6 +123,14 @@ public class JugadorService {
         Jugador jugador = getOne(id);
 
         List<Tirada> listaTiradas = jugador.getTiradas();
+        String idTirada;
+
+        for (Tirada tirada : listaTiradas) {
+
+            idTirada = tirada.getId();
+            tiradaRepository.deleteById(idTirada);
+
+        }
 
         tiradaRepository.deleteAllById(listaTiradas,id);
 
@@ -177,10 +186,11 @@ public class JugadorService {
         jugador.setAcierto(porcentaje);
 
         //guardar cambios en repositorios
-        jugadorRepository.save(jugador);
         tiradaRepository.save(tirada);
+        jugadorRepository.save(jugador);
 
     }
+
 
     //// PORCENTAJES
     public Map<String, Integer> porcentajeJugadores() {

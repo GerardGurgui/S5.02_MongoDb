@@ -11,7 +11,7 @@ public interface TiradaRepository extends MongoRepository<Tirada,String> {
 
     List<Tirada> findByidJugadorIgnoreCase(String idJugador);
 
-    List<Tirada> getTiradasByidJugadorIgnoreCase(String idJugador);
+    List<Tirada> getByIdJugadorIgnoreCase(String idJugador);
 
     void deleteAllById(List<Tirada> listaTiradas, String id);
 }

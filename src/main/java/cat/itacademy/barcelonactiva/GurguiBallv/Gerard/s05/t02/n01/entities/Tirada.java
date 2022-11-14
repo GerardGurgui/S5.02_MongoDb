@@ -1,6 +1,7 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities;
 
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,8 +9,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "tiradas")
 public class Tirada {
 
+    @Id
     private String id;
-
     private String idJugador;
     private int dado1;
     private int dado2;
@@ -63,5 +64,17 @@ public class Tirada {
 
     public void setResultado(int resultado) {
         this.resultado = resultado;
+    }
+
+    @Override
+    public String
+    toString() {
+        return "Tirada{" +
+                "id='" + id + '\'' +
+                ", idJugador='" + idJugador + '\'' +
+                ", dado1=" + dado1 +
+                ", dado2=" + dado2 +
+                ", resultado=" + resultado +
+                '}';
     }
 }

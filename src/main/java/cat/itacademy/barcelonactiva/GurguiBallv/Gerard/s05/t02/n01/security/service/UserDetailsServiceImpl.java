@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador jugador = jugadorRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+                .orElseThrow(() -> new UsernameNotFoundException("Player Not Found with username: " + username));
 
         return new org.springframework.security.core.userdetails.User(
                 jugador.getUsername(),jugador.getPassword(),new ArrayList<>());

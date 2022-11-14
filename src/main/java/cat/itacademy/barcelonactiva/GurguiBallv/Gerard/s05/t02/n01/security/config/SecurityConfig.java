@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Configuracion global de CORS para toda la aplicacion
+     * Configuracion global de CORS para toda la aplicacion, REVISTAR ESTO
      */
     @Bean
     CorsConfigurationSource corsConfigurationSource()
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    // ============ SOBREESCRIBIR FUNCIONALIDAD SECURITY POR DEFECTO ======
+    // ========= SOBREESCRIBIR FUNCIONALIDAD SECURITY POR DEFECTO ======
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -85,8 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
-//                .antMatchers("/").permitAll()
-                .antMatchers("/players/get/**").permitAll()
+//                .antMatchers("/players/get/**").permitAll() ----> aunque sean gets, hay que hacer login antes
                 .anyRequest().authenticated();
 
 
