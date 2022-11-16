@@ -1,6 +1,7 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.security.service;
 
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Player;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private JugadorRepository jugadorRepository;
+    private PlayerRepository playerRepository;
 
 
     /*
@@ -30,10 +31,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador jugador = jugadorRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Player Not Found with username: " + username));
+        Player user = playerRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
         return new org.springframework.security.core.userdetails.User(
-                jugador.getUsername(),jugador.getPassword(),new ArrayList<>());
+                user.getUsername(),user.getPassword(),new ArrayList<>());
     }
 }

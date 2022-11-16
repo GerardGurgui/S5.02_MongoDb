@@ -2,12 +2,11 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities;
 
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document(collection = "tiradas")
-public class Tirada {
+public class Launch {
 
     @Id
     private String id;
@@ -16,10 +15,10 @@ public class Tirada {
     private int dado2;
     private int resultado;
 
-    public Tirada() {
+    public Launch() {
     }
 
-    public Tirada(String idJugador, int dado1, int dado2, int resultado) {
+    public Launch(String idJugador, int dado1, int dado2, int resultado) {
         this.idJugador = idJugador;
         this.dado1 = dado1;
         this.dado2 = dado2;

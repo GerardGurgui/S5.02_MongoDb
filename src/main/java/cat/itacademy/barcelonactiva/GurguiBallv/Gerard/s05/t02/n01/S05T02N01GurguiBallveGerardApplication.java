@@ -2,18 +2,11 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01;
 
 //import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
 //import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Tirada;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
 //import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.TiradaRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.time.LocalDate;
 
 //--> SWAGGER LOCALHOST http://localhost:8080/swagger-ui.html#/
 
@@ -29,6 +22,10 @@ import java.time.LocalDate;
 *
 * //MONGO
 * Generador ids de colecciones --> https://www.javaguides.net/2019/12/spring-boot-mongodb-crud-example-tutorial.html
+*
+* SECURITY + JWT
+*
+* JWT (ACTUALIZAT 2022) --> https://www.youtube.com/watch?v=_p-Odh3MZJc
 *
 * */
 

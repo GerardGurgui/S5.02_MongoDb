@@ -1,7 +1,7 @@
 package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.mapper;
 
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Jugador;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.PlayerDto;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -16,33 +16,30 @@ import java.time.LocalDate;
 * */
 
 @Component
-public class DtoToPlayer implements IMapper <JugadorDTO, Jugador>{
+public class DtoToPlayer implements IMapper <PlayerDto, Player>{
 
     @Autowired
     private PasswordEncoder encoder;
 
     @Override
-    public Jugador map(JugadorDTO jugadorDTO) {
+    public Player map(PlayerDto playerDto) {
 
-        Jugador jugadorEntity = new Jugador();
+        Player playerEntity = new Player();
 
-
-        if (jugadorDTO.getUsername().isEmpty()){
-            jugadorEntity.setUsername("Anónimo");
+        if (playerDto.getUsername().isEmpty()){
+            playerEntity.setUsername("Anónimo");
         } else {
-            jugadorEntity.setUsername(jugadorDTO.getUsername());
+            playerEntity.setUsername(playerDto.getUsername());
         }
 
-        jugadorEntity.setEmail(jugadorDTO.getEmail());
-        jugadorEntity.setPassword(encoder.encode(jugadorDTO.getPassword()));
-        jugadorEntity.setFechaRegistro(LocalDate.now());
-        jugadorEntity.setPuntuacion(0);
-        jugadorEntity.setVictoria(0);
+        playerEntity.setEmail(playerDto.getEmail());
+        playerEntity.setPassword(encoder.encode(playerDto.getPassword()));
+        playerEntity.setFechaRegistro(LocalDate.now());
+        playerEntity.setPuntuacion(0);
+        playerEntity.setVictoria(0);
 
-        return jugadorEntity;
+        return playerEntity;
     }
-
-
 
 
 }

@@ -1,18 +1,17 @@
-package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.rest;
+package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.controllers;
 
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.JugadorDTO;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.JugadorRepository;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.PlayerDto;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.PlayerRepository;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.security.jwt.JwtTokenUtil;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.security.payload.JwtResponse;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.security.payload.LoginRequest;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.security.payload.MessageResponse;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.JugadorService;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.PlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * Si las credenciales son válidas se genera un token JWT como respuesta
  *
- * ADAPTAR REGISTRO Y LOGIN A LA ENTIDAD DE JUGADORES, SE REGISTRAN Y LOGIN PARA PODER JUGAR CON LA COOKIE GENERADA
+ * ADAPTAR REGISTRO Y LOGIN A LA ENTIDAD DE JUGADORES, SE REGISTRAN Y LOGIN PARA PODER JUGAR CON EL TOKEN GENERADO
  */
 
 // @CrossOrigin(origins = "http://localhost:8081")
@@ -34,28 +33,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AuthenticationManager authManager;
-    private final JugadorRepository jugadorRepository;
-    private final PasswordEncoder encoder;
-    private final JugadorService jugadorService;
-    private final JwtTokenUtil jwtTokenUtil;
-
-    public AuthController(AuthenticationManager authManager,
-                          JugadorRepository jugadorRepository,
-                          PasswordEncoder encoder,
-                          JugadorService jugadorService, JwtTokenUtil jwtTokenUtil){
-        this.authManager = authManager;
-        this.jugadorRepository = jugadorRepository;
-        this.encoder = encoder;
-        this.jugadorService = jugadorService;
-        this.jwtTokenUtil = jwtTokenUtil;
-    }
+    @Autowired
+    private AuthenticationManager authManager;
+    @Autowired
+    private PlayerRepository playerRepository;
+    @Autowired
+    private PlayerService playerService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
 
     @PostMapping("/login")
-    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<JwtResponse> login(@RequestBody PlayerDto playerDto){
 
         Authentication authentication = authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(playerDto.getUsername(), playerDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtTokenUtil.generateJwtToken(authentication);
@@ -66,17 +57,17 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<MessageResponse> register(@RequestBody JugadorDTO jugadorDto) {
+    public ResponseEntity<MessageResponse> register(@RequestBody PlayerDto playerDto) {
 
         // Check 1: username
-        if (jugadorRepository.existsByUsername(jugadorDto.getUsername())) {
+        if (playerRepository.existsByUsername(playerDto.getUsername())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
 
         // Check 2: email
-        if (jugadorRepository.existsByEmail(jugadorDto.getEmail())) {
+        if (playerRepository.existsByEmail(playerDto.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
@@ -84,7 +75,7 @@ public class AuthController {
 
         // Create new user's account -- ADAPTAR A MI ENTIDAD JUGADOR
 
-        jugadorService.create(jugadorDto);
+        playerService.create(playerDto);
 
         return ResponseEntity.ok(new MessageResponse("Player registered successfully!"));
     }

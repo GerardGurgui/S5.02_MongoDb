@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "jugadores")
-public class Jugador {
+public class Player {
 
     @Id
     private String id;
@@ -23,12 +23,11 @@ public class Jugador {
 
     private LocalDate fechaRegistro;
 
-
 //    @DBRef
-    private List<Tirada> tiradas;
+    private List<Launch> launches;
 
 
-    public Jugador() {
+    public Player() {
     }
 
 
@@ -96,25 +95,25 @@ public class Jugador {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public List<Tirada> getTiradas() {
-        return tiradas;
+    public List<Launch> getTiradas() {
+        return launches;
     }
 
-    public void setTiradas(List<Tirada> tiradas) {
-        this.tiradas = tiradas;
+    public void setTiradas(List<Launch> launches) {
+        this.launches = launches;
     }
 
 
     //ADD TIRADAS JUGADOR
 
-    public void addTirada(Tirada tirada){
+    public void addTirada(Launch launch){
 
-        if (tiradas == null){
+        if (launches == null){
 
-            tiradas = new ArrayList<>();
+            launches = new ArrayList<>();
         }
 
-        tiradas.add(tirada);
+        launches.add(launch);
 
     }
 
@@ -129,7 +128,7 @@ public class Jugador {
                 ", victoria=" + victoria +
                 ", acierto=" + acierto +
                 ", fechaRegistro=" + fechaRegistro +
-                ", tiradas=" + tiradas +
+                ", tiradas=" + launches +
                 '}';
     }
 }

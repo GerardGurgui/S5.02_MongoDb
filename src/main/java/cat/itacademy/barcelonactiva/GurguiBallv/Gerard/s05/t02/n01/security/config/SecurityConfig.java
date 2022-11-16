@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * Configuracion global de CORS para toda la aplicacion, REVISTAR ESTO
+     * Configuracion global de CORS para toda la aplicacion
      */
     @Bean
     CorsConfigurationSource corsConfigurationSource()
@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    // ========= SOBREESCRIBIR FUNCIONALIDAD SECURITY POR DEFECTO ======
+    // ============ SOBREESCRIBIR FUNCIONALIDAD SECURITY POR DEFECTO ======
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
@@ -80,20 +80,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // CORS (Cross-origin resource sharing)
         //desactivar cross-cheking, error 403 con metodos POST
         http.cors().and().csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests().antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll()
-//                .antMatchers("/players/get/**").permitAll() ----> aunque sean gets, hay que hacer login antes
+//                .antMatchers("/players/**").permitAll()
                 .anyRequest().authenticated();
 
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
-
-
 
 
 }
