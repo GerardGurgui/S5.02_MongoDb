@@ -1,7 +1,8 @@
-S5.02 - JUEGO DE DADOS
+
+#S5.02 - JUEGO DE DADOS
 
 
---LINKS DE AYUDA
+#--LINKS DE AYUDA
 
 * Registrar en dos tablas relacionadas con Spring --> https://www.youtube.com/watch?v=rKj1NhXuHuk
 * open bootcamp
@@ -11,7 +12,7 @@ S5.02 - JUEGO DE DADOS
 * 			      
 
 
---MONGODB
+#--MONGODB
 
 * https://www.youtube.com/watch?v=ssj0CGxv60k&t=2478s
 * https://www.youtube.com/watch?v=cqJRd4eRqVU&t=2534s
@@ -19,7 +20,8 @@ S5.02 - JUEGO DE DADOS
 * https://www.baeldung.com/spring-data-mongodb-tutorial
 * https://docs.spring.io/spring-data/mongodb/docs/1.2.x/reference/html/mapping-chapter.html
 
---SPRING SECURITY + JWT
+
+#--SPRING SECURITY + JWT
 
 * Open Bootcamp
 * Java Guides
