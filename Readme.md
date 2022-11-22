@@ -2,17 +2,16 @@
 # S5.02 - JUEGO DE DADOS
 
 
-# --LINKS DE AYUDA
+# LINKS DE AYUDA
 
 * Registrar en dos tablas relacionadas con Spring --> https://www.youtube.com/watch?v=rKj1NhXuHuk
 * open bootcamp
 * java guides
 * CRUD completo --> https://www.youtube.com/watch?v=z_dLYcQqSHI
-* SERIALIZABLE  --> https://stackoverflow.com/questions/49003908/why-while-using-spring-boot-i-need-entities-to-be-serializable
-* 			      
+* SERIALIZABLE  --> https://stackoverflow.com/questions/49003908/why-while-using-spring-boot-i-need-entities-to-be-serializable      
 
 
-# --MONGODB
+# MONGODB
 
 * https://www.youtube.com/watch?v=ssj0CGxv60k&t=2478s
 * https://www.youtube.com/watch?v=cqJRd4eRqVU&t=2534s
@@ -21,7 +20,7 @@
 * https://docs.spring.io/spring-data/mongodb/docs/1.2.x/reference/html/mapping-chapter.html
 
 
-# --SPRING SECURITY + JWT
+# SPRING SECURITY + JWT
 
 * Open Bootcamp
 * Java Guides
