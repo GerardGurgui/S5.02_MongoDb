@@ -4,6 +4,7 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.controllers;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.PlayerDto;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Player;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Launch;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.NoThrowsPlayerException;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.PlayerRepository;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.security.payload.MessageResponse;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service.PlayerService;
@@ -40,14 +41,14 @@ public class PlayerController {
     //--> READ
 
     @GetMapping("/get/findAll")
-    public List<Player> getAllPlayers(){
+    public List<Player> getAllPlayers() {
 
         return playerService.getAll();
 
     }
 
     @GetMapping("/get/findOne/{id}")
-    public ResponseEntity<Player> getOnePlayer(@PathVariable String id){
+    public ResponseEntity<Player> getOnePlayer(@PathVariable String id) {
 
         return ResponseEntity.ok(playerService.getOne(id));
 
@@ -55,7 +56,7 @@ public class PlayerController {
 
 
     @GetMapping("/getThrows/{idPlayer}")
-    public List<Launch> getAllDadosOnePlayer(@PathVariable String idPlayer){
+    public List<Launch> getAllDadosOnePlayer(@PathVariable String idPlayer) {
 
         return playerService.getDadosOnePlayer(idPlayer);
 
@@ -66,7 +67,7 @@ public class PlayerController {
 
     @PutMapping("/updatePlayer/{id}")
     public ResponseEntity<Player> updatePlayer(@RequestBody PlayerDto playerDto,
-                                               @PathVariable String id){
+                                               @PathVariable String id) {
 
         return new ResponseEntity<>(playerService.update(playerDto, id), HttpStatus.OK);
 
@@ -76,7 +77,7 @@ public class PlayerController {
     //--> DELETE
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<MessageResponse> deletePlayer(@PathVariable String id){
+    public ResponseEntity<MessageResponse> deletePlayer(@PathVariable String id) {
 
         playerService.deleteOnePlayer(id);
 
@@ -85,11 +86,14 @@ public class PlayerController {
     }
 
     @DeleteMapping("/deleteThrows/{id}")
-    public ResponseEntity<MessageResponse> deleteThrowsOnePlayer(@PathVariable String id){
+    public ResponseEntity<MessageResponse> deleteThrowsOnePlayer(@PathVariable String id) {
+
 
         playerService.deleteTiradasOnePlayer(id);
 
         return ResponseEntity.ok().body(new MessageResponse("Throws from player deleted succesfully"));
+
+
     }
 
 
@@ -97,7 +101,7 @@ public class PlayerController {
     @PostMapping("/game/throws/{id}")
     public Player throwsDice(@PathVariable String id,
                              @RequestHeader(HttpHeaders.AUTHORIZATION)
-                             String token){
+                             String token) {
 
 
         return playerService.realizarTirada(id);
@@ -109,28 +113,28 @@ public class PlayerController {
 
     //LISTA DE PORCENTAJE DE CADA JUGADOR
     @GetMapping("/percentage/players")
-    public Map<String,Integer> showPercentage(){
+    public Map<String, Integer> showPercentage() {
 
         return playerService.porcentajeJugadores();
     }
 
     //EL PORCENTAJE MEDIO TOTAL DE LOS JUGADORES
     @GetMapping("/ranking")
-    public int showAllAverage(){
+    public int showAllAverage() {
 
         return playerService.porcentajeMediaTotal();
 
     }
 
     @GetMapping("/ranking/loser")
-    public Map<String, Integer> showLoser(){
+    public Map<String, Integer> showLoser() {
 
         return playerService.porcentajeJugadorLoser();
 
     }
 
     @GetMapping("/ranking/winner")
-    public Map<String, Integer> showWinner(){
+    public Map<String, Integer> showWinner() {
 
         return playerService.porcentajeJugadorWinner();
 

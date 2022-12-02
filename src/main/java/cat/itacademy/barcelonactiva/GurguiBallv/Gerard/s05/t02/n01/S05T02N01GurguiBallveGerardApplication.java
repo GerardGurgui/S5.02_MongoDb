@@ -38,20 +38,6 @@ public class S05T02N01GurguiBallveGerardApplication {
 
 		ApplicationContext context = SpringApplication.run(S05T02N01GurguiBallveGerardApplication.class, args);
 
-//		JugadorRepository jugadorRepository = context.getBean(JugadorRepository.class);
-//
-//		PasswordEncoder encoder = context.getBean(PasswordEncoder.class);
-//
-//		LocalDate localDate = LocalDate.now();
-//
-//		Jugador jugador = new Jugador();
-//
-//		jugador.setContrasenya(encoder.encode("gerard"));
-//
-//
-//
-//
-//		jugadorRepository.save(jugador);
 
 	}
 

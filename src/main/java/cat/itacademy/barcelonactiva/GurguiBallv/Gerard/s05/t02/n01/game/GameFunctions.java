@@ -19,21 +19,8 @@ public class GameFunctions {
     private static final Logger log = LoggerFactory.getLogger(PlayerService.class);
 
 
+    //----> INICIO - FIN JUEGO
 
-    public static void validarNombre(String nombre, List<Player> jugadores){
-
-        int i = 0;
-
-        while (i < jugadores.size()){
-
-            if (jugadores.get(i).getUsername().equals(nombre)){
-
-                throw new ExistentUserNameException("El nombre de usuario ya existe");
-            }
-
-            i++;
-        }
-    }
 
 
     public static Launch tirarDados(){

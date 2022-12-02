@@ -3,10 +3,7 @@ package cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.service;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.DTO.PlayerDto;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Player;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.entities.Launch;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.ExistentEmailException;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.ExistentUserNameException;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.IdPlayerException;
-import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.PlayerNotFoundException;
+import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.exceptions.*;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.game.GameFunctions;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.mapper.DtoToPlayer;
 import cat.itacademy.barcelonactiva.GurguiBallv.Gerard.s05.t02.n01.repositories.PlayerRepository;
@@ -30,9 +27,13 @@ public class PlayerService {
         this.launchRepository = launchRepository;
     }
 
+
+    //---> INICIO - FIN JUEGO
+
+
     ////CRUD
-        //--> CREATE
-    public Player create(PlayerDto playerDto){
+    //--> CREATE
+    public Player create(PlayerDto playerDto) {
 
         //MAPEAR DE DTO A ENTIDAD (COMPROBACIÓN DE NOMBRE VACÍO)
         Player playerEntity = mapper.map(playerDto);
@@ -40,7 +41,7 @@ public class PlayerService {
         //COMPROBAR SI YA EXISTE ESE JUGADOR O NO
         Boolean existe = playerRepository.existsByUsername(playerEntity.getUsername());
 
-        if (existe && !playerEntity.getUsername().equalsIgnoreCase("Anónimo")){
+        if (existe && !playerEntity.getUsername().equalsIgnoreCase("Anónimo")) {
 
             throw new ExistentUserNameException("El nombre del jugador ya existe");
         }
@@ -50,42 +51,42 @@ public class PlayerService {
     }
 
 
-        //--> READ
-    public List<Player> getAll(){
+    //--> READ
+    public List<Player> getAll() {
 
         return playerRepository.findAll();
     }
 
 
-    public Player getOne(String id){
+    public Player getOne(String id) {
 
         Optional<Player> jugador = playerRepository.findById(id);
 
-        if (jugador.isEmpty()){
+        if (jugador.isEmpty()) {
 
-            throw new PlayerNotFoundException("No existe el jugador con id " +id);
+            throw new PlayerNotFoundException("No existe el jugador con id " + id);
 
         }
 
         return jugador.get();
     }
 
-    public List<Launch> getDadosOnePlayer(String idJugador){
+    public List<Launch> getDadosOnePlayer(String idJugador) {
 
         return launchRepository.findByidJugadorIgnoreCase(idJugador);
 
     }
 
-        //--> UPDATE
+    //--> UPDATE
 
-    public Player update(PlayerDto playerDto, String id){
+    public Player update(PlayerDto playerDto, String id) {
 
-        if (playerRepository.existsByUsername(playerDto.getUsername())){
+        if (playerRepository.existsByUsername(playerDto.getUsername())) {
 
             throw new ExistentUserNameException("El nombre del jugador ya existe");
         }
 
-        if (playerRepository.existsByEmail(playerDto.getEmail())){
+        if (playerRepository.existsByEmail(playerDto.getEmail())) {
 
             throw new ExistentEmailException("El email ya existe");
         }
@@ -110,16 +111,16 @@ public class PlayerService {
     }
 
 
-        //--> DELETE
+    //--> DELETE
 
-    public void deleteOnePlayer(String id){
+    public void deleteOnePlayer(String id) {
 
         playerRepository.deleteById(id);
 
     }
 
 
-    public void deleteTiradasOnePlayer(String id){
+    public void deleteTiradasOnePlayer(String id) {
 
         //REVISAR
 
@@ -128,6 +129,13 @@ public class PlayerService {
         List<Launch> listaLaunches = player.getTiradas();
         String idTirada;
 
+
+        if (listaLaunches.isEmpty()) {
+
+            throw new NoThrowsPlayerException("El jugador no tiene tiradas registradas");
+
+        }
+
         for (Launch launch : listaLaunches) {
 
             idTirada = launch.getId();
@@ -135,12 +143,19 @@ public class PlayerService {
 
         }
 
+        player.getTiradas().clear();
+        player.setAcierto(0);
+        player.setPuntuacion(0);
+
+        //GUARDAR CAMBIOS
+        playerRepository.save(player);
+
     }
 
 
-    //TIRADA
+    //----- TIRADA DE DADOS------
 
-    public Player realizarTirada(String id){
+    public Player realizarTirada(String id) {
 
         Player player = playerRepository.findById(id).get();
 
@@ -193,7 +208,7 @@ public class PlayerService {
     }
 
 
-    //// PORCENTAJES
+    ////------- PORCENTAJES ---------
     public Map<String, Integer> porcentajeJugadores() {
 
         //EXCEPTION DE SI TIENE TIRADAS O NO???
@@ -230,8 +245,6 @@ public class PlayerService {
         return GameFunctions.calcularPorcentajeWinner(jugadores);
 
     }
-
-
 
 
 }
