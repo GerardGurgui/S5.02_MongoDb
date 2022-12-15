@@ -1,5 +1,9 @@
 
-# S5.02 - JUEGO DE DADOS
+
+# S5.02 - PROYECTO FINAL: Juego de dados (MongoDb)
+
+### Construir una Api Rest dónde registramos a jugadores para unirse a una partida de un juego de dados.
+### Persistencia con MySql y mongoDb, implementación de Spring Security + autenticación de usuario con JWT
 
 
 # LINKS DE AYUDA
